@@ -2,975 +2,491 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reciclagem Operacional — Alta Performance (4h)</title>
-  <meta name="description" content="Reciclagem técnica e energética (4h) para elevar Nota + Conversão: Fluxo + Obrigatoriedades, Sondagem + Argumentação e Postura + Disciplina." />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Reciclagem Operacional — Alta Performance</title>
+  <meta name="description" content="Reciclagem 4h (técnico e energético): Fluxo + Obrigatoriedades, Sondagem + Argumentação, Postura + Disciplina. Material pronto para aplicar." />
+  <meta name="theme-color" content="#0b0f1a" />
 
   <style>
     :root{
-      --bg0:#05070f;
-      --bg1:#0b1220;
-      --glass:rgba(255,255,255,.08);
-      --glass2:rgba(255,255,255,.12);
-      --stroke:rgba(255,255,255,.14);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --soft:rgba(255,255,255,.60);
+      --bg0:#070a12;
+      --bg1:#0a1124;
+      --ink:#eef2ff;
+      --muted:rgba(238,242,255,.72);
+      --muted2:rgba(238,242,255,.52);
+      --line:rgba(255,255,255,.14);
 
-      /* Paleta mais amigável (azul + roxo + teal) */
-      --p:#7c5cff;
-      --p2:#31d6ff;
-      --a:#3cffc6;
-      --warn:#ffcc66;
-      --bad:#ff5c7a;
+      --glass: rgba(10, 16, 35, .62);
+      --glass2: rgba(10, 16, 35, .46);
+
+      --a:#7c3aed;  /* roxo */
+      --b:#06b6d4;  /* ciano */
+      --c:#22c55e;  /* verde */
 
       --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 20px;
+      --shadow2: 0 10px 26px rgba(0,0,0,.35);
 
-      --maxw: 1200px; /* controla “quão grande” fica o conteúdo em telas enormes */
+      --r: 22px;
+      --r2: 16px;
+
+      --pad: clamp(14px, 2.2vw, 26px);
+      --gap: clamp(12px, 1.8vw, 20px);
+
+      --h1: clamp(30px, 4.3vw, 68px);
+      --h2: clamp(18px, 2.2vw, 28px);
+      --p: clamp(14px, 1.25vw, 18px);
+      --small: clamp(12px, 1.0vw, 14px);
+
+      --topbarH: 66px;
+      --bottombarH: 64px;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica;
-      color:var(--text);
-      background: var(--bg0);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background: radial-gradient(1200px 700px at 15% 15%, rgba(124,58,237,.25), transparent 55%),
+                  radial-gradient(1200px 700px at 85% 25%, rgba(6,182,212,.18), transparent 55%),
+                  radial-gradient(900px 600px at 70% 90%, rgba(34,197,94,.12), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow:hidden;
     }
 
-    /* Fundo com imagem + overlays (sem ficar branco jamais) */
+    /* Fundo com imagem do repo (mesma pasta do index.html) */
     .bg{
       position:fixed; inset:0;
+      background-image: url('bg.png'); /* ✅ caminho correto no Pages */
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      filter:saturate(1.05) contrast(1.05);
+      opacity:.18;
+      transform:scale(1.03);
+      z-index:-2;
+    }
+    .vignette{
+      position:fixed; inset:-1px;
       background:
-        radial-gradient(1200px 700px at 18% 18%, rgba(124,92,255,.32), transparent 60%),
-        radial-gradient(1100px 760px at 82% 22%, rgba(49,214,255,.22), transparent 62%),
-        radial-gradient(900px 700px at 70% 86%, rgba(60,255,198,.16), transparent 60%),
-        linear-gradient(180deg, rgba(5,7,15,.78) 0%, rgba(5,7,15,.92) 62%, rgba(5,7,15,.96) 100%),
-        url("./bg.png");
-      background-size: cover;
-      background-position: center;
-      filter: saturate(1.05) contrast(1.06);
-      transform: scale(1.02);
+        radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(1200px 700px at 85% 18%, rgba(6,182,212,.16), transparent 58%),
+        radial-gradient(900px 700px at 70% 95%, rgba(34,197,94,.10), transparent 62%),
+        radial-gradient(900px 700px at 30% 80%, rgba(0,0,0,.25), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.70));
+      z-index:-1;
     }
 
-    /* Fallback caso o caminho relativo demore/cache: coloca o RAW como imagem secundária por cima */
-    .bg::after{
-      content:"";
-      position:absolute; inset:0;
-      background-image: url("https://raw.githubusercontent.com/PitherMachado/reciclagem-callcentern1/main/bg.png");
-      background-size: cover;
-      background-position: center;
-      opacity:.001; /* quase zero, mas “força” alguns navegadores a resolver o asset */
-      pointer-events:none;
+    /* Layout geral em tela cheia (corrige mobile e fullscreen real) */
+    .app{
+      height: 100vh;
+      height: 100svh; /* melhor para mobile quando disponível */
+      height: 100dvh; /* melhor ainda para mobile moderno */
+      display:grid;
+      grid-template-rows: var(--topbarH) 1fr var(--bottombarH);
     }
 
-    /* Top bar */
     .topbar{
-      position:fixed;
-      top:18px; left:18px; right:18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      z-index:20;
-      pointer-events:none;
+      padding: 12px var(--pad);
+      gap:var(--gap);
     }
     .brand{
-      pointer-events:auto;
-      display:flex; flex-direction:column; gap:4px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      max-width: min(680px, 92vw);
-    }
-    .brand .t1{
       display:flex; align-items:center; gap:10px;
-      font-weight:800; letter-spacing:.2px;
-      line-height:1.1;
+      padding:10px 12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--line);
+      border-radius:999px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width:min(880px, 100%);
     }
     .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, #fff, var(--p));
-      box-shadow: 0 0 0 4px rgba(124,92,255,.18);
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(90deg, var(--a), var(--b));
+      box-shadow: 0 0 0 6px rgba(124,58,237,.14);
       flex:0 0 auto;
     }
-    .brand .t2{
-      font-size:12.5px;
-      color:var(--muted);
-      display:flex; flex-wrap:wrap; gap:10px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      pointer-events:auto;
-      user-select:none;
-    }
-    .pill small{ color:var(--muted); font-weight:600; }
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    .brand strong{ font-size:14px; letter-spacing:.2px; }
+    .brand span{
+      display:block;
       font-size:12px;
-      padding:2px 8px;
-      border-radius:8px;
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.14);
-      color:rgba(255,255,255,.86);
+      color:var(--muted);
+      margin-top:2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    /* Stage (slides) */
-    .stage{
-      position:fixed; inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 88px 18px 76px;
-      z-index:10;
+    .controls{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
     }
-    .deck{
-      width: min(var(--maxw), 96vw);
-      height: min(70vh, 760px);
-      min-height: 520px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
+    .pill{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--line);
+      border-radius:999px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size:12px;
+      color:var(--muted);
+      user-select:none;
+    }
+    .kbd{
+      font-weight:700;
+      font-size:12px;
+      color:var(--ink);
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      padding:4px 8px;
+      border-radius:10px;
+    }
+    .btn{
+      cursor:pointer;
+      border:none;
+      color:var(--ink);
+      padding:10px 12px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(124,58,237,.35), rgba(6,182,212,.22));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .stage{
       position:relative;
+      padding: 0 var(--pad);
+      display:flex;
+      align-items:stretch;
+      justify-content:center;
+      min-height:0;
+    }
+
+    /* Slide ocupa a tela (sem quadrado pequeno): largura quase total */
+    .slide{
+      width: min(1600px, 96vw);
+      height: calc(100% - 0px);
+      padding: var(--pad);
+      display:grid;
+      grid-template-rows: auto 1fr;
+      gap: var(--gap);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       overflow:hidden;
     }
 
-    /* Slide layout */
-    .slide{
-      position:absolute; inset:0;
-      padding: 34px 34px 28px;
-      display:none;
-      animation: fade .25s ease;
-    }
-    .slide.active{ display:block; }
-
-    @keyframes fade{
-      from{ opacity:0; transform: translateY(6px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
-
-    .h1{
-      font-size: clamp(28px, 3.2vw, 52px);
-      line-height: 1.05;
-      margin: 0 0 10px;
-      font-weight: 900;
-      letter-spacing: -.6px;
-    }
-    .lead{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: clamp(14px, 1.2vw, 18px);
-      line-height: 1.5;
-      max-width: 90ch;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap:16px;
-      height: calc(100% - 110px);
-    }
-    .grid1{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-      height: calc(100% - 110px);
-    }
-    .card{
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      padding: 18px 18px;
+    /* Conteúdo interno pode rolar (mobile) sem quebrar */
+    .content{
+      min-height:0;
       overflow:auto;
+      padding-right: 6px;
+      scrollbar-color: rgba(255,255,255,.25) transparent;
+      scrollbar-width: thin;
     }
-    .card h3{
-      margin:0 0 10px;
-      font-size: 16px;
-      letter-spacing:.2px;
-      display:flex; align-items:center; gap:10px;
+    .content::-webkit-scrollbar{ width:10px; }
+    .content::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.18); border-radius:999px; border: 2px solid transparent; background-clip: content-box; }
+    .content::-webkit-scrollbar-track{ background: transparent; }
+
+    .headline h1{
+      margin:0;
+      font-size: var(--h1);
+      letter-spacing:-.6px;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+    .headline p{
+      margin:10px 0 0;
+      font-size: var(--p);
+      color: var(--muted);
+      line-height:1.5;
+      max-width: 80ch;
+    }
+    .tagrow{
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
     .tag{
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.86);
-      font-weight: 700;
-      letter-spacing:.2px;
-      white-space:nowrap;
+      color:var(--muted);
+      font-size:12px;
     }
-    .tag.good{ border-color: rgba(60,255,198,.28); background: rgba(60,255,198,.10); }
-    .tag.warn{ border-color: rgba(255,204,102,.28); background: rgba(255,204,102,.10); }
-    .tag.bad{ border-color: rgba(255,92,122,.28); background: rgba(255,92,122,.10); }
-    .tag.p{ border-color: rgba(124,92,255,.30); background: rgba(124,92,255,.12); }
-
-    ul,ol{ margin: 10px 0 0 20px; }
-    li{ margin: 7px 0; color: rgba(255,255,255,.86); line-height:1.45; }
-    .muted{ color: var(--muted); }
-    .soft{ color: var(--soft); }
-
-    .kpi{
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top: 12px;
+    .tag i{
+      width:8px;height:8px;border-radius:99px;
+      background:var(--c);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.10);
     }
-    .kbox{
-      border-radius: 16px;
-      padding: 14px 14px;
-      background: rgba(255,255,255,.06);
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .9fr;
+      gap: var(--gap);
+      align-items:stretch;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(10,16,35,.50), rgba(10,16,35,.34));
       border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--r2);
+      padding: clamp(14px, 1.8vw, 18px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.32);
     }
-    .kbox .n{ font-weight:900; font-size: 18px; }
-    .kbox .d{ color: var(--muted); font-size: 12.5px; margin-top:4px; line-height:1.35; }
-
-    .quote{
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-left: 4px solid rgba(124,92,255,.75);
-      background: rgba(124,92,255,.10);
-      border-radius: 12px;
-      color: rgba(255,255,255,.90);
+    .panel h3{
+      margin:0 0 10px;
+      font-size: clamp(14px, 1.25vw, 16px);
+      color: rgba(238,242,255,.86);
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .badge .b{
+      width:8px;height:8px;border-radius:99px;
+      background: linear-gradient(90deg, var(--a), var(--b));
+      box-shadow: 0 0 0 6px rgba(124,58,237,.12);
     }
 
-    /* Footer controls */
-    .footer{
-      position:fixed;
-      bottom: 16px; left: 18px; right: 18px;
+    .list{
+      margin:0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      font-size: var(--p);
+      line-height:1.55;
+    }
+    .list li{ margin: 8px 0; }
+    .list b{ color: rgba(238,242,255,.92); }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+    .card{
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .14s ease, background .14s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.08);
+    }
+    .card strong{
+      color: rgba(238,242,255,.92);
+      font-size: 16px;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .callout{
+      margin-top: var(--gap);
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(124,58,237,.30);
+      background: linear-gradient(135deg, rgba(124,58,237,.18), rgba(6,182,212,.10));
+      color: rgba(238,242,255,.88);
+      box-shadow: 0 10px 30px rgba(0,0,0,.26);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .callout .pin{
+      width:10px;height:10px;border-radius:99px;
+      margin-top:6px;
+      background: var(--a);
+      box-shadow: 0 0 0 7px rgba(124,58,237,.12);
+      flex:0 0 auto;
+    }
+    .callout b{ color:#fff; }
+
+    /* Destaques */
+    mark{
+      background: linear-gradient(90deg, rgba(124,58,237,.30), rgba(6,182,212,.20));
+      color: rgba(255,255,255,.96);
+      padding: 0 .25em;
+      border-radius: .5em;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    }
+
+    /* Barra inferior */
+    .bottombar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      z-index:20;
-      pointer-events:none;
+      padding: 10px var(--pad);
+      gap: var(--gap);
     }
     .progressWrap{
-      pointer-events:auto;
-      flex: 1;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.14);
-      overflow:hidden;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
+      flex:1;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 120px;
     }
     .progress{
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      flex:1;
+    }
+    .bar{
       height:100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--p), var(--p2), var(--a));
-      border-radius: 999px;
+      background: linear-gradient(90deg, var(--a), var(--b));
+      border-right: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 0 26px rgba(124,58,237,.28);
       transition: width .25s ease;
     }
-    .actions{
-      pointer-events:auto;
+    .counter{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+
+    .nav{
       display:flex;
       gap:10px;
       align-items:center;
     }
-    .btn{
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.28);
-      color: rgba(255,255,255,.92);
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      letter-spacing:.2px;
+    .navBtn{
       cursor:pointer;
-      user-select:none;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      display:inline-flex; align-items:center; gap:10px;
-    }
-    .btn:hover{ border-color: rgba(255,255,255,.28); }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(124,92,255,.28), rgba(124,92,255,.10));
-      border-color: rgba(124,92,255,.42);
-    }
-    .btn .mini{
-      font-size: 12px;
-      opacity:.86;
-      font-weight: 800;
-    }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .deck{ height: min(76vh, 900px); min-height: 560px; }
-      .grid2{ grid-template-columns: 1fr; height: calc(100% - 120px); }
-      .slide{ padding: 22px 18px 18px; }
-      .kpi{ grid-template-columns: 1fr; }
-      .brand{ border-radius: 18px; }
-      .brand .t2{ gap:8px; }
-    }
-
-    /* Click-to-advance hint area */
-    .clickLayer{
-      position:absolute; inset:0;
-      cursor: pointer;
-      user-select:none;
-    }
-    .corner{
-      position:absolute;
-      top: 14px; right: 14px;
-      display:flex; gap:8px; align-items:center;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      font-weight: 900;
-      letter-spacing:.2px;
-    }
-    .led{
-      width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, #fff, var(--a));
-      box-shadow: 0 0 0 4px rgba(60,255,198,.14);
-    }
-    .count{
-      padding: 8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.80);
-      font-weight: 900;
-      letter-spacing:.2px;
-      min-width: 70px;
-      text-align:center;
-    }
-
-    /* Toast (quick tips) */
-    .toast{
-      position:fixed;
-      right: 18px;
-      bottom: 74px;
-      z-index:30;
-      max-width: min(420px, 92vw);
+      border:none;
+      color: var(--ink);
       padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.40);
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 14px 38px rgba(0,0,0,.45);
-      backdrop-filter: blur(10px);
-      display:none;
-      animation: pop .22s ease;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, background .12s ease;
+      font-weight: 700;
+      letter-spacing:.2px;
     }
-    .toast.show{ display:block; }
-    @keyframes pop{
-      from{ opacity:0; transform: translateY(8px); }
+    .navBtn:hover{ background: rgba(255,255,255,.08); }
+    .navBtn:active{ transform: translateY(1px); }
+    .navBtn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,.30), rgba(6,182,212,.20));
+      border-color: rgba(255,255,255,.18);
+    }
+
+    /* Transições */
+    .fadeIn{
+      animation: fadeIn .22s ease both;
+    }
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(6px); }
       to{ opacity:1; transform: translateY(0); }
     }
-    .toast strong{ display:block; margin-bottom:4px; }
-    .toast span{ color: rgba(255,255,255,.78); font-size: 13px; line-height:1.4; }
 
-    /* Small helper for emphasizing */
-    .hl{ color: rgba(255,255,255,.96); font-weight: 900; }
-    .arrow{ opacity:.9; }
+    /* Responsivo */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr; }
+      .topbar{ align-items:flex-start; }
+      .controls{ gap:8px; }
+      .pill{ display:none; }
+      .slide{ width: 96vw; }
+    }
+    @media (max-width: 560px){
+      :root{ --topbarH: 58px; --bottombarH: 64px; }
+      .brand span{ display:none; }
+      .navBtn{ padding: 11px 12px; border-radius: 14px; }
+    }
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
-  <div class="topbar">
-    <div class="brand">
-      <div class="t1"><span class="dot"></span> Reciclagem Operacional — Alta Performance</div>
-      <div class="t2">
-        <span>4h • Técnico • Energético</span>
-        <span>Foco: <b>Nota + Conversão</b></span>
-        <span>Regra do dia: <b>Execução padrão</b> (sem ruído)</span>
-      </div>
-    </div>
-
-    <div class="pill" title="Atalhos">
-      <small>Navegação:</small>
-      <span class="kbd">Clique</span>
-      <span class="kbd">←</span><span class="kbd">→</span>
-      <span class="kbd">Espaço</span>
-      <small style="margin-left:10px">Tela cheia:</small>
-      <span class="kbd">F</span>
-    </div>
-  </div>
-
-  <div class="stage">
-    <div class="deck" id="deck" role="application" aria-label="Apresentação - Reciclagem Operacional">
-      <div class="corner">
-        <div class="badge"><span class="led"></span> <span id="phaseLabel">COMEÇO FORTE</span></div>
-        <div class="count"><span id="counter">1</span>/<span id="total">10</span></div>
+  <div class="app" id="app">
+    <!-- Top -->
+    <header class="topbar">
+      <div class="brand" title="Reciclagem Operacional — Alta Performance">
+        <div class="dot"></div>
+        <div>
+          <strong>Reciclagem Operacional — Alta Performance</strong>
+          <span>4h • Técnico • Energético • Foco: Nota + Conversão • Regra do dia: Execução padrão (sem ruído)</span>
+        </div>
       </div>
 
-      <div class="clickLayer" id="clickLayer" aria-label="Clique para avançar"></div>
+      <div class="controls">
+        <div class="pill">Navegação: <span class="kbd">Clique</span> <span class="kbd">←</span><span class="kbd">→</span> <span class="kbd">Espaço</span></div>
+        <button class="btn" id="fsBtn" type="button" title="Tela cheia (F)">Tela cheia <span class="kbd">F</span></button>
+      </div>
+    </header>
 
-      <!-- SLIDE 1 -->
-      <section class="slide active" data-phase="COMEÇO FORTE">
-        <h1 class="h1">Reciclagem que dá resultado (sem reinventar a roda)</h1>
-        <p class="lead">
-          <span class="hl">Objetivo prático:</span> tirar o time do “sei mas não faço” e transformar em execução padrão.
-          Hoje você vai sair com <b>frases prontas</b>, <b>checklist</b> e <b>simulação</b> para aplicar já.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Prioridade por impacto imediato</span></h3>
-            <ol>
-              <li><b>Fluxo + Obrigatoriedades</b>: informação objetiva e clara, sem enrolação.</li>
-              <li><b>Sondagem + Argumentação</b>: pergunta certa → controle da chamada → argumento certo.</li>
-              <li><b>Postura + Disciplina</b>: tom, vontade, objetividade e execução padrão.</li>
-            </ol>
-
-            <div class="quote">
-              <b>Contrato do dia:</b> “Eu não estou aqui para ‘tentar’. Estou aqui para <b>executar padrão</b>.”
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">O que melhora hoje</span></h3>
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">↑ Nota</div>
-                <div class="d">Menos falhas de fluxo e obrigatoriedade → mais conformidade.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">↑ Conversão</div>
-                <div class="d">Mais controle de chamada → pergunta certa → argumento certo.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">↓ Retrabalho</div>
-                <div class="d">Menos “voltar depois” por falta de informação obrigatória.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">↑ Padrão</div>
-                <div class="d">Equipe previsível: qualidade repetível em toda ligação.</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- Stage -->
+    <main class="stage">
+      <section class="slide fadeIn" id="slide">
+        <!-- JS injeta aqui -->
       </section>
+    </main>
 
-      <!-- SLIDE 2 -->
-      <section class="slide" data-phase="AQUECIMENTO">
-        <h1 class="h1">Aquecimento (10 min): vamos cortar o ruído</h1>
-        <p class="lead">
-          <b>Instrução para o time:</b> vocês vão ajustar 3 coisas agora. Sem debate. Só execução.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag warn">Regra 1 — Frases proibidas</span></h3>
-            <ul>
-              <li>“Vou ver…” → troque por <b>“Vou confirmar agora com você”</b></li>
-              <li>“Acho que…” → <b>“Funciona assim:”</b></li>
-              <li>“Depois eu te chamo” → <b>“Próximo passo é agora: (ação)”</b></li>
-              <li>“Se você quiser…” → <b>“O que faz mais sentido pra você: A ou B?”</b></li>
-            </ul>
-
-            <div class="quote">
-              <b>Meta:</b> tom confiante + frase curta + próximo passo claro. <span class="soft">(Sem novela.)</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Regra 2 e 3 — Tom e controle</span></h3>
-            <ul>
-              <li><b>Tom:</b> energia controlada (sem gritar). Frase curta. Pausa intencional.</li>
-              <li><b>Controle:</b> 1 pergunta por vez. Resposta → validação → próxima pergunta.</li>
-              <li><b>Objetividade:</b> sem repetir. Se repetiu, é porque não confirmou.</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Checklist mental</div>
-                <div class="d">Perguntei? Confirmei? Direcionei o próximo passo?</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Sinal de alerta</div>
-                <div class="d">“Eu falei muito e não conduzi nada.”</div>
-              </div>
-            </div>
-          </div>
+    <!-- Bottom -->
+    <footer class="bottombar">
+      <div class="progressWrap">
+        <div class="progress" aria-label="Progresso">
+          <div class="bar" id="bar"></div>
         </div>
-      </section>
+        <div class="counter" id="counter">1/10</div>
+      </div>
 
-      <!-- SLIDE 3 -->
-      <section class="slide" data-phase="BLOCO 1 — FLUXO">
-        <h1 class="h1">Bloco 1: Fluxo + Obrigatoriedades (90 min)</h1>
-        <p class="lead">
-          <b>Instrução para o time:</b> a nota cai por <b>omissão</b> e por <b>confusão</b>. Hoje é “curto e completo”.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Fluxo padrão (ordem que não se negocia)</span></h3>
-            <ol>
-              <li><b>Abertura + contexto</b> (quem somos + por que ligamos + 1 frase de valor)</li>
-              <li><b>Permissão</b> (pergunta curta + sim/não)</li>
-              <li><b>Sondagem mínima</b> (2–4 perguntas essenciais)</li>
-              <li><b>Proposta objetiva</b> (o que muda + condição + próximo passo)</li>
-              <li><b>Obrigatoriedades</b> (sem juridiquês, sem pressa)</li>
-              <li><b>Fechamento</b> (confirmação + próximos passos + canal)</li>
-            </ol>
-
-            <div class="quote">
-              <b>Frase de ouro:</b> “Eu vou te explicar <b>rápido e claro</b> o que é obrigatório, e depois confirmo com você.”
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Obrigatoriedades — como falar sem travar</span></h3>
-            <ul>
-              <li><b>Regra:</b> 1 bloco de informação = 1 confirmação.</li>
-              <li><b>Formato:</b> “É obrigatório X. Isso ficou claro pra você?”</li>
-              <li><b>Evite:</b> parágrafos longos e “lendo” a obrigação.</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Modelo pronto</div>
-                <div class="d">
-                  “Pra seguir certinho: <b>(obrigação 1)</b>. Confirmou?<br>
-                  Agora <b>(obrigação 2)</b>. Confirmou?”
-                </div>
-              </div>
-              <div class="kbox">
-                <div class="n">Erro clássico</div>
-                <div class="d">Falar tudo de uma vez e perguntar “entendeu?” no final.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 4 -->
-      <section class="slide" data-phase="BLOCO 1 — FLUXO">
-        <h1 class="h1">Dinâmica (20 min): “Fluxo em 8 linhas”</h1>
-        <p class="lead">
-          <b>Instrução:</b> cada vendedor escreve o fluxo padrão em 8 linhas. Depois vamos comparar com o padrão.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag warn">Atividade individual (7 min)</span></h3>
-            <ol>
-              <li>Escreva 8 linhas, cada linha é uma etapa da ligação.</li>
-              <li>Em 3 linhas você precisa colocar <b>confirmar</b> (pergunta de check).</li>
-              <li>Proibido usar “explicar”, “falar”, “passar tudo”. Use verbos de ação: <b>perguntar, confirmar, direcionar</b>.</li>
-            </ol>
-            <div class="quote">
-              <b>Exemplo de linha:</b> “Obrigatoriedade 1 → frase curta → confirmação ‘ok?’”
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Correção em grupo (13 min)</span></h3>
-            <ul>
-              <li>2 pessoas leem o fluxo em voz alta.</li>
-              <li>O grupo marca: <b>onde travou</b> e <b>onde faltou confirmar</b>.</li>
-              <li>Você finaliza com a versão padrão e a “frase de ouro” de obrigatoriedade.</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Meta da dinâmica</div>
-                <div class="d">Todo mundo sai com 8 linhas memorizáveis.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Indicador</div>
-                <div class="d">Redução de omissão + menos “retrabalho”.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5 -->
-      <section class="slide" data-phase="BLOCO 2 — SONDA.">
-        <h1 class="h1">Bloco 2: Sondagem + Argumentação (90 min)</h1>
-        <p class="lead">
-          <b>Instrução para o time:</b> não é “falar bem”. É <b>perguntar certo</b> e usar a resposta como munição.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Sondagem mínima (4 perguntas que mandam no jogo)</span></h3>
-            <ol>
-              <li><b>Objetivo:</b> “Qual resultado você quer resolver primeiro?”</li>
-              <li><b>Timing:</b> “Você precisa resolver isso hoje ou pode ser essa semana?”</li>
-              <li><b>Condição:</b> “O que pesa mais pra você: valor da parcela ou prazo?”</li>
-              <li><b>Compromisso:</b> “Se fizer sentido, você confirma o próximo passo agora?”</li>
-            </ol>
-            <div class="quote">
-              <b>Regra:</b> sem resposta = sem argumento. Argumento sem resposta = “chute”.
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Argumentação em 20 segundos (modelo pronto)</span></h3>
-            <ul>
-              <li><b>1) O que muda:</b> “Com isso, você resolve (dor) com (benefício).”</li>
-              <li><b>2) Por que agora:</b> “O melhor cenário é (razão objetiva).”</li>
-              <li><b>3) Próximo passo:</b> “Então vamos fazer assim: (ação simples).”</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Script curto</div>
-                <div class="d">
-                  “Pelo que você disse (<b>X</b>), o caminho mais seguro é (<b>Y</b>).<br>
-                  Eu te guio no passo a passo agora. <b>Fechado?</b>”
-                </div>
-              </div>
-              <div class="kbox">
-                <div class="n">Erro clássico</div>
-                <div class="d">Explicar tudo antes de perguntar. Isso mata o controle.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 6 -->
-      <section class="slide" data-phase="BLOCO 2 — SONDA.">
-        <h1 class="h1">Simulação (25 min): “Resposta → argumento → fechamento”</h1>
-        <p class="lead">
-          <b>Instrução:</b> dupla A/B. Um atende, o outro avalia com o checklist. Troca de papéis.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag warn">Roteiro da simulação (você lê e eles executam)</span></h3>
-            <ol>
-              <li>Atendente faz abertura + permissão (30s)</li>
-              <li>Faz 2 perguntas de sondagem (60s)</li>
-              <li>Faz argumento em 20s (20s)</li>
-              <li>Fecha com “A ou B” (30s)</li>
-              <li>Passa obrigatoriedade em blocos curtos com confirmação (60s)</li>
-            </ol>
-            <div class="quote">
-              <b>Tempo total:</b> 3min20 por rodada. Depois feedback direto.
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Checklist do avaliador (marcar SIM/NÃO)</span></h3>
-            <ul>
-              <li>✅ Fez permissão clara?</li>
-              <li>✅ Fez pelo menos 2 perguntas de sondagem?</li>
-              <li>✅ Usou a resposta na argumentação?</li>
-              <li>✅ Fechou com alternativa (A/B)?</li>
-              <li>✅ Obrigatoriedade em blocos + confirmação?</li>
-              <li>✅ Próximo passo ficou explícito?</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Feedback padrão (15s)</div>
-                <div class="d">“Você foi forte em (X). Ajusta (Y) assim: (frase pronta).”</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Meta</div>
-                <div class="d">Sair com 1 ajuste claro por pessoa.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 7 -->
-      <section class="slide" data-phase="BLOCO 3 — POSTURA">
-        <h1 class="h1">Bloco 3: Postura + Disciplina (40 min)</h1>
-        <p class="lead">
-          <b>Instrução:</b> vendedor bom não “tem vontade”. Vendedor bom tem <b>padrão</b> mesmo sem vontade.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Padrão de voz (o que você exige na hora)</span></h3>
-            <ul>
-              <li><b>Volume:</b> claro (sem baixo demais).</li>
-              <li><b>Ritmo:</b> frase curta → pausa → pergunta.</li>
-              <li><b>Intenção:</b> direção, não desculpa.</li>
-              <li><b>Energia:</b> firme + leve. “Profissional e humano”.</li>
-            </ul>
-            <div class="quote">
-              <b>Frase do líder:</b> “Não preciso que você esteja animado. Preciso que você execute padrão.”
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag warn">Disciplina operacional (3 gatilhos práticos)</span></h3>
-            <ol>
-              <li><b>Sem improviso:</b> checklist sempre aberto.</li>
-              <li><b>Sem lacuna:</b> falou obrigatoriedade → confirmou.</li>
-              <li><b>Sem fuga:</b> objeção = pergunta → controle → alternativa.</li>
-            </ol>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Pior hábito</div>
-                <div class="d">“Jogar pro Whats” sem conduzir o próximo passo.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Melhor hábito</div>
-                <div class="d">“Confirmar antes de avançar.” Isso sobe nota e conversão.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 8 -->
-      <section class="slide" data-phase="OBJEÇÕES">
-        <h1 class="h1">Objeções: 4 respostas padrão que convertem</h1>
-        <p class="lead">
-          <b>Instrução:</b> não rebata. <b>Pergunte</b>, valide e direcione.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">“Vou pensar” (modelo fechado)</span></h3>
-            <ul>
-              <li><b>Você:</b> “Perfeito. Pra eu te ajudar do jeito certo: pesa mais <b>parcela</b> ou <b>prazo</b>?”</li>
-              <li><b>Se Parcela:</b> “Então vamos ajustar condição pra caber. Melhor A ou B?”</li>
-              <li><b>Se Prazo:</b> “Então vamos alongar e manter segurança. A ou B?”</li>
-              <li><b>Se os dois:</b> “Beleza. Eu te proponho a opção mais equilibrada. A ou B?”</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">“Não tenho tempo agora” / “Me chama depois”</span></h3>
-            <ul>
-              <li><b>Você:</b> “Entendi. É rápido: 30 segundos. Se fizer sentido, você decide. Pode ser?”</li>
-              <li><b>Se sim:</b> argumento 20s + próximo passo.</li>
-              <li><b>Se não:</b> “Fechado. Melhor horário: hoje (X) ou amanhã (Y)?”</li>
-            </ul>
-
-            <div class="quote">
-              <b>Regra:</b> “Depois” só existe com agenda fechada (hora definida).
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 9 -->
-      <section class="slide" data-phase="PLANO 7 DIAS">
-        <h1 class="h1">Plano de 7 dias (pra virar hábito e bater nota)</h1>
-        <p class="lead">
-          <b>Instrução:</b> treino sem acompanhamento vira “evento”. A gente precisa de rotina curta e mensurável.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Rotina diária (5 minutos antes do turno)</span></h3>
-            <ol>
-              <li>Leia o fluxo em 8 linhas (30s)</li>
-              <li>Repita 2 “frases proibidas” → versão correta (1min)</li>
-              <li>Treine 1 argumento de 20s (1min)</li>
-              <li>Treine 1 obrigatoriedade em bloco + confirmação (1min)</li>
-              <li>Treine 1 objeção “vou pensar” (1min30)</li>
-            </ol>
-            <div class="quote">
-              <b>Meta:</b> 5 minutos por dia > 1 treino gigante e depois nada.
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Medição simples (líder consegue cobrar)</span></h3>
-            <ul>
-              <li><b>3 ligações/dia</b> auditadas por amostragem (rápido).</li>
-              <li>Marcar: fluxo ok? obrigatoriedade ok? confirmação ok?</li>
-              <li><b>1 ajuste por dia</b> por pessoa (não mais que isso).</li>
-            </ul>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Sinal de evolução</div>
-                <div class="d">A pessoa reduz fala longa e aumenta confirmações.</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Sinal de queda</div>
-                <div class="d">“Promessa de depois” sem agendar e sem conduzir.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 10 -->
-      <section class="slide" data-phase="FECHAMENTO">
-        <h1 class="h1">Fechamento: compromisso de execução (sem desculpa)</h1>
-        <p class="lead">
-          <b>Instrução:</b> cada pessoa sai com 1 compromisso mensurável. Sem “vou tentar”.
-        </p>
-
-        <div class="grid2">
-          <div class="card">
-            <h3><span class="tag p">Contrato de comportamento (copiar e preencher)</span></h3>
-            <ul>
-              <li><b>Eu paro de:</b> ______________________________</li>
-              <li><b>Eu começo a:</b> ______________________________</li>
-              <li><b>Eu me comprometo a medir diariamente:</b> ______________________________</li>
-              <li><b>Meu indicador (sim/não):</b> “Confirmei obrigatoriedades em blocos?”</li>
-            </ul>
-            <div class="quote">
-              <b>Regra:</b> compromisso sem indicador = promessa vazia.
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><span class="tag good">Mensagem em 20 segundos (pra fechar)</span></h3>
-            <div class="quote">
-              “Hoje a gente ajustou o que dá impacto imediato: <b>Fluxo + Obrigatoriedades</b> com clareza,
-              <b>Sondagem + Argumentação</b> com método, e <b>Postura + Disciplina</b> com padrão.
-              Amanhã a execução é simples: <b>perguntar, confirmar e direcionar</b>. Sem ruído.”
-            </div>
-
-            <div class="kpi">
-              <div class="kbox">
-                <div class="n">Ação agora</div>
-                <div class="d">Você escolhe: quer treinar “obrigatoriedade” ou “vou pensar” mais 2 rodadas?</div>
-              </div>
-              <div class="kbox">
-                <div class="n">Próximo passo</div>
-                <div class="d">Rodar amostragem de 3 ligações/dia por 7 dias.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="progressWrap" title="Progresso">
-      <div class="progress" id="progress"></div>
-    </div>
-
-    <div class="actions">
-      <button class="btn" id="prevBtn" type="button"><span class="arrow">←</span> Voltar <span class="mini">[←]</span></button>
-      <button class="btn primary" id="nextBtn" type="button">Avançar <span class="arrow">→</span> <span class="mini">[→ / Espaço]</span></button>
-    </div>
-  </div>
-
-  <div class="toast" id="toast" role="status" aria-live="polite">
-    <strong id="toastTitle">Dica</strong>
-    <span id="toastMsg">Use ← → ou Espaço. Pressione F para tela cheia.</span>
+      <nav class="nav" aria-label="Navegação de slides">
+        <button class="navBtn" id="prev" type="button">← Voltar</button>
+        <button class="navBtn primary" id="next" type="button">Avançar →</button>
+      </nav>
+    </footer>
   </div>
 
   <script>
-    (function(){
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const totalEl = document.getElementById('total');
-      const counterEl = document.getElementById('counter');
-      const progressEl = document.getElementById('progress');
-      const phaseLabel = document.getElementById('phaseLabel');
-
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const clickLayer = document.getElementById('clickLayer');
-
-      const toast = document.getElementById('toast');
-      const toastTitle = document.getElementById('toastTitle');
-      const toastMsg = document.getElementById('toastMsg');
-
-      totalEl.textContent = slides.length.toString();
-
-      let i = 0;
-      let toastTimer = null;
-
-      function showToast(title, msg){
-        toastTitle.textContent = title;
-        toastMsg.textContent = msg;
-        toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(()=> toast.classList.remove('show'), 2200);
-      }
-
-      function setSlide(idx){
-        i = Math.max(0, Math.min(slides.length - 1, idx));
-        slides.forEach((s, k) => s.classList.toggle('active', k === i));
-
-        counterEl.textContent = (i+1).toString();
-        const pct = ((i+1) / slides.length) * 100;
-        progressEl.style.width = pct.toFixed(2) + "%";
-
-        const phase = slides[i].getAttribute('data-phase') || "RECICLAGEM";
-        phaseLabel.textContent = phase;
-
-        // Pequenas dicas em pontos-chave
-        if(i === 0) showToast("Começo forte", "Clique/→ para avançar. F ativa tela cheia.");
-        if(i === 2) showToast("Bloco 1", "Regra: Obrigatoriedade em blocos + confirmação.");
-        if(i === 4) showToast("Bloco 2", "Sem resposta = sem argumento. Pergunte primeiro.");
-        if(i === 6) showToast("Bloco 3", "Padrão mesmo sem vontade: disciplina operacional.");
-        if(i === 9) showToast("Fechamento", "Compromisso mensurável. Sem ‘vou tentar’.");
-
-        // Atualiza URL com hash (facilita voltar no slide)
-        history.replaceState(null, "", "#s" + (i+1));
-      }
-
-      function next(){ setSlide(i + 1); }
-      function prev(){ setSlide(i - 1); }
-
-      prevBtn.addEventListener('click', prev);
-      nextBtn.addEventListener('click', next);
-      clickLayer.addEventListener('click', (e) => {
-        // Evita avançar ao clicar em scrollbar de cards
-        const sel = window.getSelection();
-        if(sel && sel.toString().length) return;
-        next();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        const key = e.key.toLowerCase();
-        if(key === 'arrowright' || key === ' ' || key === 'enter'){
-          e.preventDefault();
-          next();
-        }
-        if(key === 'arrowleft'){
-          e.preventDefault();
-          prev();
-        }
-        if(key === 'f'){
-          e.preventDefault();
-          toggleFullscreen();
-        }
-      });
-
-      function toggleFullscreen(){
-        const el = document.documentElement;
-        if(!document.fullscreenElement){
-          el.requestFullscreen?.();
-          showToast("Tela cheia", "Pressione F novamente para sair.");
-        }else{
-          document.exitFullscreen?.();
-          showToast("Tela cheia", "Saiu do modo tela cheia.");
-        }
-      }
-
-      // Inicializa pelo hash (ex: #s3)
-      const m = (location.hash || "").match(/#s(\d+)/);
-      if(m){
-        const start = parseInt(m[1], 10);
-        if(!Number.isNaN(start)) setSlide(start - 1);
-        else setSlide(0);
-      }else{
-        setSlide(0);
-      }
-    })();
-  </script>
-</body>
-</html>
+    const slides = [
+      {
+        badge: "COMEÇO FORTE",
+        title: "Reciclagem que dá resultado (sem reinventar a roda)",
+        subtitle: "Hoje a regra é simples: <mark>execução padrão</mark>. Sem ruído. Sem “depois eu vejo”.",
+        leftTitle: "Prioridade por impacto imediato",
+        leftList: [
+          "<b>Fluxo + Obrigatoriedades</b>: informação objetiva e clara, sem enrolação.",
+          "<b>Sondagem + Argumentação</b>: pergunta certa → controle da chamada → argumento certo.",
+          "<b>Postura + Disciplina</b>: tom, vontade, objetividade e execução padrão."
+        ],
+        rightTitle: "O que melhora hoje",
+        cards: [
+          ["↑ Nota", "Menos falhas de fluxo e obrigatoriedade → mais conformidade."],
+          ["↑ Conversão", "Mais controle de chamada → pergunta certa → argumento certo."],
+          ["↓ Retrabalho", "Menos
