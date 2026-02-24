@@ -3,1143 +3,635 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reciclagem Operacional Avançada — Alta Performance</title>
-  <meta name="description" content="Treinamento/Reciclagem técnica e energética (4h): Fluxo + Obrigatoriedades, Sondagem + Argumentação, Postura + Disciplina, Simulações e Plano 7 dias." />
-  <meta name="theme-color" content="#0b0f1a" />
+  <title>Reciclagem Operacional — Alta Performance</title>
+  <meta name="description" content="Reciclagem técnica e energética (4h): Fluxo + Obrigatoriedades, Sondagem + Argumentação, Postura + Disciplina." />
+  <meta name="theme-color" content="#0b0b10" />
   <style>
     :root{
-      --bg0:#070a12;
-      --bg1:#0b1020;
-      --bg2:#0f1730;
+      --bg0:#070A10;
+      --bg1:#0A1020;
       --card: rgba(255,255,255,.06);
       --card2: rgba(255,255,255,.08);
       --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.18);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
       --muted2: rgba(255,255,255,.55);
-      --good: #5CFFB0;
-      --warn: #FFC857;
-      --bad:  #FF6B6B;
-      --acc:  #7AA7FF;
-      --acc2: #B9A3FF;
-
-      --r: 18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --brand:#6AA7FF;
+      --brand2:#B36BFF;
+      --good:#41D39A;
+      --warn:#FFCC66;
+      --bad:#FF6B6B;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --r:18px;
+      --maxw: 1120px;
     }
 
-    *{ box-sizing: border-box; }
-    html, body{ height:100%; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: var(--sans);
-      color: var(--text);
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans";
       background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(122,167,255,.18), transparent 55%),
-        radial-gradient(900px 600px at 85% 25%, rgba(185,163,255,.12), transparent 60%),
-        radial-gradient(900px 700px at 40% 110%, rgba(92,255,176,.08), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
-      overflow-x:hidden;
+        radial-gradient(1200px 700px at 15% 10%, rgba(106,167,255,.18), transparent 55%),
+        radial-gradient(900px 550px at 85% 20%, rgba(179,107,255,.16), transparent 55%),
+        radial-gradient(900px 650px at 50% 95%, rgba(65,211,154,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
     }
 
-    a{ color: inherit; text-decoration: none; }
-    button{ font-family: inherit; }
-    ::selection{ background: rgba(122,167,255,.35); }
+    /* Shell */
+    .deck{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
 
-    .wrap{ max-width: 1180px; margin:0 auto; padding: 22px 18px 90px; }
-
-    /* Topbar */
     .topbar{
-      position: sticky; top:0; z-index: 50;
-      backdrop-filter: blur(12px);
-      background: rgba(7,10,18,.55);
-      border-bottom: 1px solid var(--stroke);
-    }
-    .topbar .inner{
-      max-width: 1180px; margin: 0 auto;
-      padding: 10px 18px;
-      display:flex; gap: 12px; align-items:center; justify-content: space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 18px;
+      gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.10));
+      backdrop-filter: blur(10px);
     }
     .brand{
-      display:flex; gap: 10px; align-items:center;
-      min-width: 220px;
+      display:flex; align-items:center; gap:10px; min-width: 240px;
     }
-    .logo{
-      width: 38px; height: 38px; border-radius: 12px;
-      background:
-        radial-gradient(18px 18px at 30% 25%, rgba(255,255,255,.35), transparent 55%),
-        linear-gradient(135deg, rgba(122,167,255,.95), rgba(185,163,255,.92));
-      box-shadow: 0 12px 28px rgba(122,167,255,.25);
-      border: 1px solid rgba(255,255,255,.18);
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 0 0 4px rgba(106,167,255,.14);
     }
-    .brand .t1{ font-weight: 800; letter-spacing: .2px; }
-    .brand .t2{ font-size: 12px; color: var(--muted2); margin-top: -2px; }
-    .actions{ display:flex; gap: 8px; align-items:center; flex-wrap: wrap; justify-content:flex-end; }
-    .btn{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 9px 12px;
-      border-radius: 12px;
-      display:inline-flex; gap: 8px; align-items:center;
-      cursor:pointer;
-      transition: .18s ease;
-      user-select:none;
-      box-shadow: 0 10px 26px rgba(0,0,0,.18);
+    .brand h1{
+      font-size:14px; margin:0; letter-spacing:.4px; font-weight:750;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: var(--stroke2); background: rgba(255,255,255,.08); }
-    .btn.primary{
-      border-color: rgba(122,167,255,.42);
-      background: linear-gradient(135deg, rgba(122,167,255,.22), rgba(185,163,255,.18));
+    .brand small{ display:block; font-size:12px; color:var(--muted2); font-weight:600; margin-top:2px; }
+
+    .hud{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .pill{
-      font-size: 12px; color: var(--muted);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      padding: 6px 10px;
-      border-radius: 999px;
-      display:inline-flex; gap: 8px; align-items:center;
-    }
-    .dot{ width: 8px; height:8px; border-radius: 99px; background: var(--good); box-shadow: 0 0 0 4px rgba(92,255,176,.12); }
-
-    /* Hero */
-    .hero{ padding: 22px 0 10px; }
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 16px;
-      align-items: stretch;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .brand{ min-width: auto; }
-    }
-
-    .card{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(600px 260px at 10% 0%, rgba(122,167,255,.16), transparent 55%);
-      pointer-events:none;
-    }
-    .card > *{ position: relative; }
-
-    .h1{
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: 900;
-      letter-spacing: -.3px;
-      margin: 0 0 8px;
-      line-height: 1.1;
-    }
-    .sub{
-      color: var(--muted);
-      margin: 0 0 16px;
-      line-height: 1.55;
-      font-size: 14.5px;
-      max-width: 68ch;
-    }
-    .meta{
-      display:flex; flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-    .tag{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      display:inline-flex; gap: 8px; align-items:center;
-    }
-    .tag b{ color: var(--text); font-weight: 700; }
-
-    /* Right column widgets */
-    .kpis{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .kpi{
-      padding: 14px; border-radius: 16px;
-      border: 1px solid var(--stroke);
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.05);
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      user-select:none;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono";
+      font-size:11px;
+      color:rgba(255,255,255,.85);
+      padding:2px 6px;
+      border:1px solid rgba(255,255,255,.18);
+      border-bottom-color: rgba(255,255,255,.10);
+      border-radius:8px;
+      background: rgba(0,0,0,.25);
+    }
+
+    /* Stage */
+    .stage{
+      position:relative;
+      flex:1;
+      display:grid;
+      place-items:center;
+      padding:22px;
+    }
+    .slide{
+      width:min(var(--maxw), calc(100vw - 44px));
+      height:min(660px, calc(100vh - 160px));
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(900px 520px at 15% 10%, rgba(106,167,255,.14), transparent 55%),
+        radial-gradient(720px 420px at 85% 20%, rgba(179,107,255,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:absolute;
+      inset:auto;
+      opacity:0;
+      transform: translateX(36px) scale(.985);
+      transition: opacity .26s ease, transform .26s ease;
+      display:flex;
+      flex-direction:column;
+    }
+    .slide.active{
+      opacity:1;
+      transform: translateX(0) scale(1);
+      position:relative;
+    }
+    .slide.out-left{
+      opacity:0;
+      transform: translateX(-36px) scale(.985);
+    }
+
+    .slide-header{
+      padding:22px 22px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .title{
+      margin:0;
+      font-size:28px;
+      line-height:1.08;
+      letter-spacing:-.3px;
+    }
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+      max-width: 78ch;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.85);
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .badge .b{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(65,211,154,.12);
+    }
+
+    .slide-body{
+      padding:18px 22px 22px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      flex:1;
+      overflow:auto;
+    }
+    .card{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding:16px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:14px;
+      letter-spacing:.3px;
+      color:rgba(255,255,255,.88);
+    }
+    .list{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .kpi .box{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 14px;
+      padding:12px;
     }
     .kpi .n{
-      font-size: 22px; font-weight: 900; letter-spacing: -.2px;
+      font-size:18px;
+      font-weight:850;
+      letter-spacing:-.3px;
     }
-    .kpi .l{ font-size: 12px; color: var(--muted2); margin-top: 4px; line-height: 1.35; }
-
-    /* Nav */
-    .nav{
-      margin-top: 16px;
-      display:flex; flex-wrap: wrap;
-      gap: 8px;
-    }
-    .nav a{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--muted);
-      transition: .18s ease;
-    }
-    .nav a:hover{ border-color: var(--stroke2); color: var(--text); transform: translateY(-1px); }
-
-    /* Sections */
-    .section{ margin-top: 16px; }
-    .section h2{
-      margin: 0 0 10px;
-      font-size: 16px;
-      letter-spacing: .2px;
-      font-weight: 900;
-      display:flex; gap: 10px; align-items:center;
-    }
-    .section h2 .badge{
-      font-size: 11px;
-      color: rgba(255,255,255,.78);
-      border: 1px solid rgba(122,167,255,.32);
-      background: rgba(122,167,255,.12);
-      padding: 4px 8px;
-      border-radius: 999px;
+    .kpi .l{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted2);
+      line-height:1.35;
     }
 
-    .cols{
-      display:grid; gap: 12px;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: 980px){ .cols{ grid-template-columns: 1fr; } }
-
-    .box{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 14px;
-    }
-    .box h3{
-      margin: 0 0 8px;
-      font-size: 13px;
-      letter-spacing: .2px;
-      font-weight: 850;
-      color: rgba(255,255,255,.88);
-      display:flex; align-items:center; gap:10px;
-    }
-    .box p, .box li{
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    .box ul{ margin: 8px 0 0; padding-left: 18px; }
-
-    .callout{
-      border-left: 3px solid rgba(122,167,255,.6);
-      background: linear-gradient(90deg, rgba(122,167,255,.10), rgba(255,255,255,.02));
-      padding: 12px 12px 12px 12px;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
-
-    /* Accordion */
-    details{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 12px 12px;
-      margin-top: 10px;
-    }
-    summary{
-      cursor:pointer;
-      list-style:none;
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      font-weight: 850;
-      font-size: 13px;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    details[open]{ border-color: var(--stroke2); background: rgba(255,255,255,.05); }
-
-    .kbd{
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 2px 6px;
-      border: 1px solid var(--stroke);
-      border-radius: 8px;
-      color: rgba(255,255,255,.85);
-      background: rgba(0,0,0,.18);
-    }
-
-    /* Checklist */
-    .checklist{ display:grid; gap: 10px; }
-    .item{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      border-radius: 14px;
-      padding: 10px 10px;
-      display:flex; gap: 10px;
-      align-items:flex-start;
-    }
-    .item input{ margin-top: 3px; transform: scale(1.08); }
-    .item .t{ font-weight: 820; font-size: 13px; color: rgba(255,255,255,.9); }
-    .item .d{ font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-top: 2px; }
-
-    /* Table */
-    table{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.8px;
-      color: var(--muted);
-      overflow:hidden;
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-    }
-    th, td{
-      padding: 10px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      vertical-align: top;
-    }
-    th{
-      text-align:left;
-      color: rgba(255,255,255,.82);
-      font-weight: 850;
-      background: rgba(255,255,255,.04);
-    }
-    tr:last-child td{ border-bottom: 0; }
-
-    /* Timer */
-    .timer{
-      display:flex; gap: 10px; flex-wrap: wrap; align-items:center;
-      margin-top: 10px;
-    }
-    .clock{
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
-      background: rgba(0,0,0,.18);
-      display:flex; align-items:baseline; gap: 10px;
-      min-width: 240px;
-    }
-    .clock .time{
-      font-family: var(--mono);
-      font-size: 20px;
-      letter-spacing: .5px;
-      font-weight: 900;
-      color: rgba(255,255,255,.92);
-    }
-    .clock .label{ font-size: 12px; color: var(--muted2); }
-    .select{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.86);
-      padding: 10px 12px;
-      border-radius: 14px;
-      outline: none;
-    }
-
-    /* Footer */
+    /* Footer controls */
     .footer{
-      margin-top: 18px;
-      color: var(--muted2);
-      font-size: 12px;
-      display:flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-      opacity: .9;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 18px 16px;
     }
 
-    /* Presentation mode */
-    body.presentation .topbar{ display:none; }
-    body.presentation .wrap{ max-width: 1320px; padding-top: 18px; }
-    body.presentation .hero{ padding-top: 4px; }
-    body.presentation .card{ box-shadow: 0 26px 90px rgba(0,0,0,.55); }
+    .progress{
+      flex:1;
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      max-width: 540px;
+    }
+    .bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      border-radius:999px;
+      transition: width .22s ease;
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.28);
+      color:rgba(255,255,255,.9);
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.2px;
+      user-select:none;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.22);
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    /* Mobile */
+    @media (max-width: 920px){
+      .slide-body{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
+    @media (max-width: 520px){
+      .title{ font-size:22px; }
+      .slide{ height:min(720px, calc(100vh - 160px)); }
+      .progress{ display:none; }
+    }
+
+    /* Fullscreen hint */
+    .toast{
+      position:fixed;
+      left:16px;
+      bottom:16px;
+      padding:10px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.85);
+      font-size:12px;
+      display:none;
+      backdrop-filter: blur(10px);
+    }
+    .toast.show{ display:block; }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="inner">
-      <div class="brand" title="Material de Reciclagem Operacional Avançada">
-        <div class="logo" aria-hidden="true"></div>
+  <div class="deck" id="deck">
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
         <div>
-          <div class="t1">Reciclagem Operacional Avançada</div>
-          <div class="t2">Técnico + Energético • 4 horas • Nota & Conversão</div>
+          <h1>Reciclagem Operacional — Alta Performance</h1>
+          <small>4h • Técnico • Energético • Nota + Conversão</small>
         </div>
       </div>
 
-      <div class="actions">
-        <span class="pill"><span class="dot"></span> Pronto para aplicar</span>
-        <button class="btn" id="btnSave">Salvar progresso</button>
-        <button class="btn" id="btnReset">Resetar progresso</button>
-        <button class="btn primary" id="btnPresent">Modo apresentação</button>
-        <button class="btn" id="btnPrint">Imprimir / PDF</button>
+      <div class="hud">
+        <span class="pill">Navegação: <span class="kbd">Clique</span> <span class="kbd">→</span> <span class="kbd">←</span> <span class="kbd">Espaço</span></span>
+        <span class="pill">Tela cheia: <span class="kbd">F</span></span>
+        <span class="pill" id="counter">1 / 1</span>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+
+      <!-- SLIDE 1 -->
+      <section class="slide active" data-title="Abertura">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">Reciclagem que dá resultado (sem reinventar a roda)</h2>
+            <p class="subtitle">
+              O time já sabe vender. O objetivo aqui é <b>tirar o “sei mas não faço”</b> e transformar em execução padrão:
+              <b>Fluxo + Obrigatoriedades</b> com clareza, <b>Sondagem + Argumentação</b> com método, e <b>Postura + Disciplina</b> com consistência.
+            </p>
+          </div>
+          <div class="badge"><span class="b"></span> Começo forte</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Prioridade por impacto imediato</h3>
+            <ol class="list">
+              <li><b>Fluxo + Obrigatoriedades</b>: informação objetiva e clara, sem ruído.</li>
+              <li><b>Sondagem + Argumentação</b>: simulações, exemplos e dinâmica prática.</li>
+              <li><b>Postura + Disciplina</b>: tom de voz, vontade, objetividade e execução padrão.</li>
+            </ol>
+          </div>
+          <div class="card">
+            <h3>O que vai melhorar hoje</h3>
+            <div class="kpi">
+              <div class="box"><div class="n">↑ Nota</div><div class="l">Menos falhas de fluxo, mais conformidade.</div></div>
+              <div class="box"><div class="n">↑ Conversão</div><div class="l">Mais controle da chamada: pergunta certa → argumento certo.</div></div>
+              <div class="box"><div class="n">↓ Retrabalho</div><div class="l">Menos “voltar depois” por falta de obrigatoriedade.</div></div>
+              <div class="box"><div class="n">↑ Padrão</div><div class="l">Equipe previsível: qualidade repetível.</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 -->
+      <section class="slide" data-title="Agenda">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">Agenda (4h) — ritmo alto, prática e correção</h2>
+            <p class="subtitle">Sem palestra longa. A cada bloco: <b>conceito → exemplo → simulação → feedback</b>.</p>
+          </div>
+          <div class="badge"><span class="b" style="background:var(--brand)"></span> Estrutura</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Blocos</h3>
+            <ul class="list">
+              <li><b>0:00–0:20</b> — Abertura + metas + combinados de execução</li>
+              <li><b>0:20–1:35</b> — Fluxo + Obrigatoriedades (clareza e padrão)</li>
+              <li><b>1:35–1:45</b> — Pausa rápida</li>
+              <li><b>1:45–3:05</b> — Sondagem + Argumentação (método + simulações)</li>
+              <li><b>3:05–3:15</b> — Pausa rápida</li>
+              <li><b>3:15–4:00</b> — Postura + Disciplina + check de compromisso 24h</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Regras do jogo</h3>
+            <ul class="list">
+              <li>Chamadas curtas e objetivas, sem “fuga” pro WhatsApp.</li>
+              <li>Obrigatoriedades sempre: <b>sem isso, sem avanço</b>.</li>
+              <li>Simulação é “ao vivo”: errou, corrige na hora e repete certo.</li>
+              <li>Todo mundo sai com 1 ação prática para executar hoje.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3 -->
+      <section class="slide" data-title="Fluxo + Obrigatoriedades">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">1) Fluxo + Obrigatoriedades = Nota + Conversão</h2>
+            <p class="subtitle">
+              Quem domina fluxo domina o controle da conversa. Quem comunica obrigatoriedade com clareza evita ruído, retrabalho e queda de nota.
+            </p>
+          </div>
+          <div class="badge"><span class="b" style="background:var(--warn)"></span> Impacto imediato</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Checklist do fluxo (padrão executável)</h3>
+            <ul class="list">
+              <li>Abertura objetiva + direcionamento</li>
+              <li>Confirmação de contexto (quem fala, por quê, objetivo)</li>
+              <li>Sondagem curta (pergunta certa, sem interrogatório)</li>
+              <li>Argumentação baseada no que foi dito (não “script automático”)</li>
+              <li>Obrigatoriedades ditas com clareza (sem enrolação)</li>
+              <li>Próximo passo (o que vai acontecer + quando)</li>
+              <li>Fechamento com confirmação (resumo em 20s)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Obrigatoriedades (como falar SEM confundir)</h3>
+            <ul class="list">
+              <li>Use frases curtas: <b>1 ideia por frase</b>.</li>
+              <li>Evite termos técnicos (ou traduza em 1 linha).</li>
+              <li>Confirme entendimento: “Ficou claro?” + 1 pergunta de checagem.</li>
+              <li>Final: <b>resumo em 20 segundos</b> (o que muda + próximo passo).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4 -->
+      <section class="slide" data-title="Sondagem + Argumentação">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">2) Sondagem + Argumentação (método, não improviso)</h2>
+            <p class="subtitle">Vender rápido não é falar muito — é perguntar certo e responder exatamente o que o cliente valorizou.</p>
+          </div>
+          <div class="badge"><span class="b" style="background:var(--good)"></span> Prática</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Sondagem de alta precisão (3 perguntas)</h3>
+            <ol class="list">
+              <li><b>Motivo</b>: “O que te fez buscar isso hoje?”</li>
+              <li><b>Critério</b>: “O que pesa mais: valor, prazo ou segurança do processo?”</li>
+              <li><b>Barreira</b>: “O que costuma travar pra você decidir?”</li>
+            </ol>
+          </div>
+          <div class="card">
+            <h3>Argumentação em 2 camadas</h3>
+            <ul class="list">
+              <li><b>Camada 1 (Lógica)</b>: benefício direto e objetivo (sem novela).</li>
+              <li><b>Camada 2 (Segurança)</b>: como funciona o próximo passo + obrigatoriedades.</li>
+              <li>Fechamento: “Faz sentido eu seguir com você agora?”</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5 -->
+      <section class="slide" data-title="Postura + Disciplina">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">3) Postura + Disciplina (tom, vontade e padrão)</h2>
+            <p class="subtitle">Quem tem disciplina de execução vira referência. Quem “faz do seu jeito” vira instável (e derruba a nota).</p>
+          </div>
+          <div class="badge"><span class="b" style="background:var(--brand2)"></span> Consistência</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Tom de voz e presença</h3>
+            <ul class="list">
+              <li>Velocidade: firme e clara (sem atropelar).</li>
+              <li>Entonação: segurança sem agressividade.</li>
+              <li>Objetividade: “vamos por etapas” + condução.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Contrato de execução (24h)</h3>
+            <ul class="list">
+              <li><b>Eu paro de</b> ______</li>
+              <li><b>Eu começo a</b> ______</li>
+              <li><b>Eu me comprometo a medir</b> ______ diariamente</li>
+              <li><b>Amanhã eu vou executar</b> ______</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6 -->
+      <section class="slide" data-title="Encerramento">
+        <div class="slide-header">
+          <div>
+            <h2 class="title">Fechamento: padrão + prática + cobrança inteligente</h2>
+            <p class="subtitle">
+              Se quiser, eu adapto isso com o seu conteúdo completo (o HTML antigo) e deixo a apresentação com
+              “slides por tema + simulações + scripts + checklists”.
+            </p>
+          </div>
+          <div class="badge"><span class="b"></span> Próximo passo</div>
+        </div>
+        <div class="slide-body">
+          <div class="card">
+            <h3>Próximos upgrades (se você quiser)</h3>
+            <ul class="list">
+              <li>Modo “Simulação”: cards com falas e botões de resposta</li>
+              <li>Botão “Imprimir” com checklist do operador</li>
+              <li>Área de “Pontuação” por atividade (gamificação)</li>
+              <li>Versão para TV/treinamento em sala (auto-zoom)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Como navegar</h3>
+            <ul class="list">
+              <li>Próximo: clique / espaço / seta direita</li>
+              <li>Anterior: seta esquerda</li>
+              <li>Tela cheia: tecla <b>F</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      <div class="progress" aria-label="Progresso">
+        <div class="bar" id="bar"></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="prevBtn" type="button">← Voltar</button>
+        <button class="btn" id="nextBtn" type="button">Avançar →</button>
       </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <section class="hero">
-      <div class="grid">
-        <div class="card">
-          <h1 class="h1">Execução é o que paga a conta.</h1>
-          <p class="sub">
-            Reciclagem para colaboradores que <b>já sabem vender</b> e <b>já conhecem as regras</b>, mas oscilam na execução.
-            O foco aqui é <b>corrigir desvio de processo</b> e instalar um padrão de alta performance que melhora
-            <b>nota de qualidade</b> e <b>conversão</b> de forma imediata.
-          </p>
-
-          <div class="meta">
-            <span class="tag"><b>Prioridade 1</b> Fluxo + Obrigatoriedades (3C)</span>
-            <span class="tag"><b>Prioridade 2</b> Sondagem + Argumentação (munição real)</span>
-            <span class="tag"><b>Prioridade 3</b> Postura + Disciplina (padrão diário)</span>
-          </div>
-
-          <div class="nav" aria-label="Navegação">
-            <a href="#agenda">Agenda 4h</a>
-            <a href="#fluxo">Fluxo + Obrigatoriedades</a>
-            <a href="#sondagem">Sondagem + Argumentação</a>
-            <a href="#postura">Postura + Disciplina</a>
-            <a href="#simulacoes">Simulações Avaliadas</a>
-            <a href="#plano7">Plano 7 dias</a>
-          </div>
-
-          <div class="callout">
-            <div style="font-weight:850; color:rgba(255,255,255,.9); margin-bottom:6px;">Mensagem do Instrutor</div>
-            <div style="color:var(--muted); line-height:1.6; font-size:13px;">
-              “Você não está aqui para reaprender do zero. Você está aqui para <b>executar no padrão</b>.
-              Talento abre porta. Disciplina mantém.”
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 style="margin:0 0 10px; font-size:14px; font-weight:900;">Indicadores que essa reciclagem ataca</h2>
-          <div class="kpis">
-            <div class="kpi">
-              <div class="n">↑ Nota</div>
-              <div class="l">Menos quebra de fluxo, obrigatoriedade mais clara e confirmada.</div>
-            </div>
-            <div class="kpi">
-              <div class="n">↑ Conversão</div>
-              <div class="l">Sondagem real gera argumento forte e fechamento mais limpo.</div>
-            </div>
-            <div class="kpi">
-              <div class="n">↓ Variância</div>
-              <div class="l">Reduz “dia bom/dia ruim” através de padrão operacional.</div>
-            </div>
-            <div class="kpi">
-              <div class="n">↑ Autoridade</div>
-              <div class="l">Tom de voz, firmeza e objetividade elevam credibilidade.</div>
-            </div>
-          </div>
-
-          <details open style="margin-top:12px;">
-            <summary>Como usar este material <span class="kbd">CTRL</span>+<span class="kbd">F</span></summary>
-            <div style="margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6;">
-              <ul>
-                <li>Use a <b>Agenda 4h</b> como trilha principal.</li>
-                <li>Execute as <b>dinâmicas</b> e faça pelo menos 2 <b>simulações avaliadas</b>.</li>
-                <li>Marque os <b>checklists</b> durante a sessão (fica salvo no navegador).</li>
-                <li>Ao final, formalize o <b>Plano 7 dias</b> e o “Contrato de Comportamento”.</li>
-              </ul>
-            </div>
-          </details>
-
-          <div class="timer" aria-label="Cronômetro do treinamento">
-            <select class="select" id="preset">
-              <option value="1800">Bloco 1 • Mentalidade (30 min)</option>
-              <option value="4500">Bloco 2 • Fluxo + Obrigatoriedades (1h15)</option>
-              <option value="4500">Bloco 3 • Sondagem + Argumentação (1h15)</option>
-              <option value="2400">Bloco 4 • Postura + Disciplina (40 min)</option>
-              <option value="1200">Bloco 5 • Simulações + Plano 7 dias (20 min)</option>
-              <option value="900">Dinâmica rápida (15 min)</option>
-            </select>
-
-            <div class="clock">
-              <div class="time" id="time">00:00</div>
-              <div class="label" id="tLabel">Selecionar bloco</div>
-            </div>
-
-            <button class="btn" id="btnStart">Iniciar</button>
-            <button class="btn" id="btnPause">Pausar</button>
-            <button class="btn" id="btnStop">Zerar</button>
-          </div>
-
-          <div style="margin-top:10px; font-size:12px; color:var(--muted2); line-height:1.5;">
-            *O cronômetro é local (não envia nada). Se quiser, use em TV/projetor no modo apresentação.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- AGENDA -->
-    <section class="section" id="agenda">
-      <h2>Agenda 4h <span class="badge">Trilha oficial</span></h2>
-
-      <div class="card">
-        <table aria-label="Agenda do treinamento">
-          <thead>
-            <tr>
-              <th>Bloco</th>
-              <th>Tempo</th>
-              <th>Objetivo</th>
-              <th>Entrega</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>1. Mentalidade de Execução</b></td>
-              <td>30 min</td>
-              <td>Quebrar a “falsa segurança” e instalar responsabilidade profissional.</td>
-              <td>Autoavaliação + compromisso mínimo</td>
-            </tr>
-            <tr>
-              <td><b>2. Fluxo + Obrigatoriedades</b></td>
-              <td>1h15</td>
-              <td>Padronizar execução e elevar nota imediatamente.</td>
-              <td>Checklist 3C + correção ao vivo</td>
-            </tr>
-            <tr>
-              <td><b>3. Sondagem + Argumentação</b></td>
-              <td>1h15</td>
-              <td>Transformar conversa em fechamento com munição real.</td>
-              <td>Fórmula de argumento + dinâmica em duplas</td>
-            </tr>
-            <tr>
-              <td><b>4. Postura + Disciplina</b></td>
-              <td>40 min</td>
-              <td>Energia, firmeza, objetividade e padrão diário.</td>
-              <td>Contrato de comportamento</td>
-            </tr>
-            <tr>
-              <td><b>5. Simulações Avaliadas + Plano 7 dias</b></td>
-              <td>20 min</td>
-              <td>Validar execução e definir acompanhamento.</td>
-              <td>Rubrica + metas de 7 dias</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <details style="margin-top:12px;">
-          <summary>Ritual de abertura (script do instrutor)</summary>
-          <div style="margin-top:10px;">
-            <div class="box">
-              <h3>Script (3–5 min)</h3>
-              <p>
-                “Hoje não é sobre aprender o básico. É sobre <b>executar o que você já sabe</b>.
-                A operação não sofre por falta de técnica — sofre por falta de <b>disciplina e padrão</b>.
-                Quem aqui topa jogar no padrão profissional por 7 dias e medir resultado?”
-              </p>
-              <p><b>Ponto de energia:</b> peça um “SIM” do grupo. Você quer adesão explícita.</p>
-            </div>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <!-- BLOCO 2 -->
-    <section class="section" id="fluxo">
-      <h2>Bloco 2 — Fluxo + Obrigatoriedades <span class="badge">Impacto imediato</span></h2>
-
-      <div class="cols">
-        <div class="card">
-          <h2 style="margin-top:0;">Padrão 3C (Clara • Curta • Confirmada)</h2>
-          <p class="sub" style="margin-bottom:10px;">
-            Obrigatoriedade não é “texto”. É <b>segurança</b>, <b>credibilidade</b> e <b>controle da conversa</b>.
-            O erro mais comum do vendedor experiente é “pular” ou “enrolar”.
-          </p>
-
-          <div class="box">
-            <h3>Modelo 3C (pronto para aplicar)</h3>
-            <ul>
-              <li><b>Clara:</b> linguagem simples, sem rodeio.</li>
-              <li><b>Curta:</b> 1 ideia por frase. Menos é mais.</li>
-              <li><b>Confirmada:</b> validar entendimento (“Ficou claro?” / “Concorda?”).</li>
-            </ul>
-          </div>
-
-          <details open>
-            <summary>Exemplos de reescrita (de fraco → forte)</summary>
-            <div style="margin-top:10px;" class="box">
-              <h3>Exemplo 1</h3>
-              <p><b>Fraco:</b> “Então, conforme análise, pode cair na conta…”</p>
-              <p><b>Forte:</b> “O valor cai na sua conta <b>após aprovação</b>. Posso seguir?”</p>
-              <h3 style="margin-top:12px;">Exemplo 2</h3>
-              <p><b>Fraco:</b> “A parcela vai ser descontada do benefício…”</p>
-              <p><b>Forte:</b> “O desconto é <b>direto no benefício</b>. O senhor está de acordo?”</p>
-            </div>
-          </details>
-
-          <details>
-            <summary>Dinâmica: “Fluxo Quebrado” (20 min)</summary>
-            <div style="margin-top:10px;" class="box">
-              <h3>Como conduzir</h3>
-              <ul>
-                <li>1 voluntário faz uma chamada “do jeito que faz no dia a dia”.</li>
-                <li>O grupo aponta: <b>quebras de fluxo</b>, <b>obrigatoriedade incompleta</b>, <b>falta de confirmação</b>.</li>
-                <li>Refaz com o padrão 3C. Compare: segurança, clareza e objeções.</li>
-              </ul>
-              <div class="callout">
-                <b>Regra:</b> a equipe não critica pessoa — critica execução.
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <div class="card">
-          <h2 style="margin-top:0;">Checklist Operacional (Fluxo + Obrigatoriedades)</h2>
-          <p class="sub" style="margin-bottom:12px;">
-            Marque durante simulações ou monitorias. O objetivo é virar <b>padrão automático</b>.
-          </p>
-
-          <div class="checklist" data-store="check_fluxo">
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Abertura firme e objetiva</div>
-                <div class="d">Sem “miolo”, sem enrolação. Direto ao ponto com educação.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Cumpriu fluxo sem atalhos</div>
-                <div class="d">Sem pular etapa “porque já entendeu”.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Obrigatoriedades em 3C</div>
-                <div class="d">Claras, curtas e confirmadas (validação do cliente).</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Confirmou entendimento</div>
-                <div class="d">Usou pelo menos 2 checkpoints de confirmação.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Próximo passo explícito</div>
-                <div class="d">Finalizou com “o que vai acontecer agora” e alinhou expectativa.</div>
-              </div>
-            </div>
-          </div>
-
-          <details style="margin-top:12px;">
-            <summary>Checklist mínimo em 8 linhas (versão rápida)</summary>
-            <div style="margin-top:10px;" class="box">
-              <ol style="margin:0; padding-left: 18px; color: var(--muted); line-height: 1.65; font-size: 13px;">
-                <li>Abertura firme</li>
-                <li>Identificação correta</li>
-                <li>Sondagem mínima (3 perguntas)</li>
-                <li>Proposta objetiva</li>
-                <li>Obrigatoriedades (3C)</li>
-                <li>Confirmação do cliente</li>
-                <li>Tratativa de objeção (se houver)</li>
-                <li>Próximo passo + encerramento</li>
-              </ol>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOCO 3 -->
-    <section class="section" id="sondagem">
-      <h2>Bloco 3 — Sondagem + Argumentação <span class="badge">Onde nasce a conversão</span></h2>
-
-      <div class="cols">
-        <div class="card">
-          <h2 style="margin-top:0;">Sondagem que gera munição</h2>
-          <p class="sub">
-            Vendedor experiente relaxa na sondagem porque acha que já sabe. Resultado: argumento fraco.
-            <b>Sem dor identificada, você só discursa.</b>
-          </p>
-
-          <div class="box">
-            <h3>Regra de ouro</h3>
-            <p><b>Quem pergunta mais, vende mais.</b> Perguntar é controlar a conversa sem parecer controlando.</p>
-          </div>
-
-          <details open>
-            <summary>Tríade de perguntas (mínimo obrigatório)</summary>
-            <div style="margin-top:10px;" class="box">
-              <ul>
-                <li><b>Contexto:</b> “Hoje o que mais pesa no seu orçamento/rotina?”</li>
-                <li><b>Dor:</b> “Se pudesse resolver uma coisa agora, qual seria?”</li>
-                <li><b>Critério:</b> “O que é mais importante: prazo, valor ou segurança?”</li>
-              </ul>
-              <div class="callout">
-                <b>Meta:</b> coletar pelo menos 2 detalhes concretos (ex.: “remédio”, “conta atrasada”, “urgência”, “medo de desconto”).
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary>Dinâmica: “Sem sondagem, sem argumento” (25–30 min)</summary>
-            <div style="margin-top:10px;" class="box">
-              <h3>Como funciona</h3>
-              <ul>
-                <li>Duplas: 1 cliente / 1 vendedor.</li>
-                <li>O vendedor só pode argumentar usando info extraída do cliente.</li>
-                <li>Se não sondou, não pode inventar argumento.</li>
-              </ul>
-              <p><b>Resultado:</b> instala disciplina e mostra por que “atalho” derruba conversão.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card">
-          <h2 style="margin-top:0;">Fórmula de Argumentação (profissional)</h2>
-          <p class="sub">Estrutura simples, repetível e forte. Não é “fala bonita”. É resolução + segurança.</p>
-
-          <div class="box">
-            <h3>Modelo</h3>
-            <p style="margin:0;">
-              <b>Dor</b> + <b>Solução</b> + <b>Segurança</b> + <b>Próximo passo</b>
-            </p>
-            <div class="callout">
-              “O senhor comentou <b>[dor]</b>. Com isso, o senhor resolve <b>[solução]</b>.
-              Funciona assim: <b>[segurança/obrigatoriedade]</b>. Posso <b>[próximo passo]</b>?”
-            </div>
-          </div>
-
-          <details open>
-            <summary>Exemplos (placeholders para sua operação)</summary>
-            <div style="margin-top:10px;" class="box">
-              <p><b>Exemplo 1:</b><br>
-                “O senhor comentou que precisa <b>[resolver X]</b>. Com esse valor, o senhor consegue <b>[resultado prático]</b>.
-                O processo é <b>[obrigatoriedade clara]</b>. Posso seguir com <b>[próximo passo]</b>?”
-              </p>
-              <p><b>Exemplo 2:</b><br>
-                “Entendi. Então o que pesa é <b>[critério]</b>. A melhor opção é <b>[proposta]</b> porque <b>[justificativa]</b>.
-                Ficou claro? Posso avançar?”
-              </p>
-            </div>
-          </details>
-
-          <div class="checklist" data-store="check_sondagem" style="margin-top:12px;">
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Fez 3 perguntas reais</div>
-                <div class="d">Contexto, dor e critério antes de “oferecer”.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Argumentou usando a fala do cliente</div>
-                <div class="d">Nada de argumento genérico.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Fez fechamento com próximo passo</div>
-                <div class="d">“Posso seguir?” / “Vamos avançar?” / “Confirmamos agora?”</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOCO 4 -->
-    <section class="section" id="postura">
-      <h2>Bloco 4 — Postura + Disciplina <span class="badge">Padrão diário</span></h2>
-
-      <div class="cols">
-        <div class="card">
-          <h2 style="margin-top:0;">Tom de voz e energia (sem perder técnica)</h2>
-          <p class="sub">
-            Energia não é “falar alto”. É <b>presença</b>, <b>firmeza</b> e <b>objetividade</b>.
-            Cliente sente insegurança em 5 segundos quando o agente está “morno”.
-          </p>
-
-          <div class="box">
-            <h3>Exercício (10 min): mesma frase, 2 versões</h3>
-            <ul>
-              <li><b>Versão 1:</b> sem energia, ritmo solto, final “para baixo”.</li>
-              <li><b>Versão 2:</b> ritmo controlado, intenção clara, final firme.</li>
-            </ul>
-            <div class="callout">
-              Pergunta-chave: “Você compraria de você mesmo ouvindo essa ligação?”
-            </div>
-          </div>
-
-          <details>
-            <summary>Higiene verbal (corte de fraqueza)</summary>
-            <div style="margin-top:10px;" class="box">
-              <p><b>Trocas rápidas:</b></p>
-              <ul>
-                <li>“vou ver” → “vou confirmar agora”</li>
-                <li>“talvez” → “o correto é”</li>
-                <li>“se der” → “vamos fazer assim”</li>
-                <li>“qualquer coisa” → “se surgir dúvida, eu explico”</li>
-              </ul>
-              <p style="margin-top:10px;"><b>Meta:</b> reduzir muletas e elevar autoridade sem perder cordialidade.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="card">
-          <h2 style="margin-top:0;">Contrato de comportamento (assinado no final)</h2>
-          <p class="sub">
-            Profissional não executa quando está inspirado. Executa porque <b>é o padrão</b>.
-          </p>
-
-          <div class="box">
-            <h3>Preencha (cada colaborador)</h3>
-            <label style="display:block; margin: 8px 0 6px; font-size:12px; color: var(--muted2);">Eu paro de:</label>
-            <input id="paro" style="width:100%; padding:10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(0,0,0,.16); color: rgba(255,255,255,.9);" placeholder="Ex.: pular confirmação / falar rápido / cortar sondagem" />
-
-            <label style="display:block; margin: 10px 0 6px; font-size:12px; color: var(--muted2);">Eu começo a:</label>
-            <input id="comeco" style="width:100%; padding:10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(0,0,0,.16); color: rgba(255,255,255,.9);" placeholder="Ex.: aplicar 3C / 3 perguntas / fechamento claro" />
-
-            <label style="display:block; margin: 10px 0 6px; font-size:12px; color: var(--muted2);">Eu me comprometo a medir diariamente:</label>
-            <input id="meço" style="width:100%; padding:10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(0,0,0,.16); color: rgba(255,255,255,.9);" placeholder="Ex.: % de fluxo / 3 perguntas / confirmações" />
-
-            <div class="callout" style="margin-top:12px;">
-              <b>Fechamento do instrutor:</b> “Você já sabe. Agora você vai <b>executar</b> e <b>medir</b>.”
-            </div>
-          </div>
-
-          <div class="checklist" data-store="check_disciplina" style="margin-top:12px;">
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Energia consistente</div>
-                <div class="d">Mesma intenção no começo e no fim do turno.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Objetividade</div>
-                <div class="d">Frases curtas, sem excesso de explicação.</div>
-              </div>
-            </div>
-            <div class="item">
-              <input type="checkbox" />
-              <div>
-                <div class="t">Disciplina de processo</div>
-                <div class="d">Fluxo e obrigatoriedades como padrão, não como opção.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOCO 5 -->
-    <section class="section" id="simulacoes">
-      <h2>Bloco 5 — Simulações Avaliadas <span class="badge">Validação final</span></h2>
-
-      <div class="card">
-        <p class="sub" style="margin-bottom:12px;">
-          Faça pelo menos <b>2 simulações completas</b> (uma com “vício real” e outra no padrão).
-          Use a rubrica abaixo para avaliar de forma objetiva.
-        </p>
-
-        <table aria-label="Rubrica de avaliação">
-          <thead>
-            <tr>
-              <th>Critério</th>
-              <th>0 (Falhou)</th>
-              <th>1 (Parcial)</th>
-              <th>2 (Padrão)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>Fluxo</b></td>
-              <td>Quebra etapas / atalhos</td>
-              <td>Cumpre mas oscila</td>
-              <td>Segue limpo, sem desvios</td>
-            </tr>
-            <tr>
-              <td><b>Obrigatoriedades (3C)</b></td>
-              <td>Confuso / incompleto</td>
-              <td>Claro, mas sem confirmar</td>
-              <td>Claro + curto + confirmado</td>
-            </tr>
-            <tr>
-              <td><b>Sondagem</b></td>
-              <td>Não investiga</td>
-              <td>1–2 perguntas</td>
-              <td>3+ perguntas com munição</td>
-            </tr>
-            <tr>
-              <td><b>Argumentação</b></td>
-              <td>Genérica</td>
-              <td>Parcialmente ligada à dor</td>
-              <td>Dor + solução + segurança + próximo passo</td>
-            </tr>
-            <tr>
-              <td><b>Postura</b></td>
-              <td>Morno / inseguro</td>
-              <td>Oscila</td>
-              <td>Firme, objetivo, consistente</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <details style="margin-top:12px;">
-          <summary>Formato sugerido das 2 simulações</summary>
-          <div style="margin-top:10px;" class="box">
-            <ul>
-              <li><b>Simulação 1 (8–10 min):</b> “como faz no dia a dia” → identificar desvios.</li>
-              <li><b>Feedback (5 min):</b> baseado na rubrica, sem julgamento.</li>
-              <li><b>Simulação 2 (8–10 min):</b> reexecução no padrão → validar evolução.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <!-- PLANO 7 DIAS -->
-    <section class="section" id="plano7">
-      <h2>Plano 7 dias <span class="badge">Acompanhamento</span></h2>
-
-      <div class="cols">
-        <div class="card">
-          <h2 style="margin-top:0;">Foco por período</h2>
-          <div class="box">
-            <h3>Dias 1–3: Fluxo + Obrigatoriedades</h3>
-            <ul>
-              <li>Meta: <b>zero quebra</b> de fluxo em amostra monitorada.</li>
-              <li>Meta: obrigatoriedade em <b>3C</b> (claro/curto/confirmado).</li>
-              <li>Indicador: % de ligações com <b>2 checkpoints</b> de confirmação.</li>
-            </ul>
-          </div>
-          <div class="box" style="margin-top:10px;">
-            <h3>Dias 4–7: Sondagem + Argumentação</h3>
-            <ul>
-              <li>Meta: <b>3 perguntas</b> antes de ofertar.</li>
-              <li>Meta: argumento sempre amarrado na fala do cliente.</li>
-              <li>Indicador: % de argumentos que seguem a fórmula (Dor+Solução+Segurança+Próximo passo).</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 style="margin-top:0;">Checklist diário do operador (para imprimir)</h2>
-          <div class="checklist" data-store="check_7dias">
-            <div class="item"><input type="checkbox" /><div><div class="t">Cumpri o fluxo sem atalhos</div><div class="d">Sem “pular porque já sei”.</div></div></div>
-            <div class="item"><input type="checkbox" /><div><div class="t">Passei obrigatoriedade em 3C</div><div class="d">E confirmei entendimento.</div></div></div>
-            <div class="item"><input type="checkbox" /><div><div class="t">Fiz 3 perguntas de sondagem</div><div class="d">Antes de argumentar/ofertar.</div></div></div>
-            <div class="item"><input type="checkbox" /><div><div class="t">Argumentei com base na dor real</div><div class="d">Nada de discurso genérico.</div></div></div>
-            <div class="item"><input type="checkbox" /><div><div class="t">Fechei com próximo passo claro</div><div class="d">Sempre “o que acontece agora”.</div></div></div>
-            <div class="item"><input type="checkbox" /><div><div class="t">Mantive energia profissional</div><div class="d">Presença e firmeza do início ao fim.</div></div></div>
-          </div>
-
-          <details style="margin-top:12px;">
-            <summary>Ranking recomendado (disciplina, não venda)</summary>
-            <div style="margin-top:10px;" class="box">
-              <p><b>Por quê?</b> Você quer premiar execução, não sorte. Isso reduz variância e instala padrão.</p>
-              <ul>
-                <li>Top 3 em “fluxo + 3C”</li>
-                <li>Top 3 em “sondagem mínima 3 perguntas”</li>
-                <li>Top 3 em “rubrica ≥ 8/10”</li>
-              </ul>
-            </div>
-          </details>
-        </div>
-      </div>
-
-      <div class="footer">
-        <div>Versão: <b>Reciclagem Operacional Avançada (4h)</b> • Ajuste os exemplos para o seu produto/regra.</div>
-        <div>Atalho: <span class="kbd">CTRL</span>+<span class="kbd">P</span> para salvar em PDF.</div>
-      </div>
-    </section>
-
-  </div>
+  <div class="toast" id="toast">Tela cheia ativada (F). Pressione novamente para sair.</div>
 
   <script>
-    // ======== SIMPLE STORAGE HELPERS ========
-    const store = {
-      get(key, fallback){
-        try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
-        catch(e){ return fallback; }
-      },
-      set(key, value){
-        try { localStorage.setItem(key, JSON.stringify(value)); }
-        catch(e){}
-      },
-      del(key){
-        try { localStorage.removeItem(key); } catch(e){}
-      }
-    };
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const counter = document.getElementById('counter');
+      const bar = document.getElementById('bar');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const toast = document.getElementById('toast');
 
-    // ======== CHECKLIST PERSISTENCE ========
-    function initChecklists(){
-      document.querySelectorAll('[data-store]').forEach((wrap)=>{
-        const key = wrap.getAttribute('data-store');
-        const boxes = Array.from(wrap.querySelectorAll('input[type="checkbox"]'));
-        const saved = store.get(key, []);
-        boxes.forEach((cb, i)=>{
-          cb.checked = !!saved[i];
-          cb.addEventListener('change', ()=>{
-            const curr = boxes.map(b=>b.checked);
-            store.set(key, curr);
-          });
+      let i = 0;
+
+      function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+      function update(){
+        slides.forEach((s, idx) => {
+          s.classList.remove('active','out-left');
+          if(idx === i) s.classList.add('active');
+          if(idx < i) s.classList.add('out-left');
         });
-      });
-    }
 
-    // ======== CONTRACT INPUTS PERSISTENCE ========
-    function initContract(){
-      const ids = ["paro","comeco","meço"];
-      ids.forEach((id)=>{
-        const el = document.getElementById(id);
-        if(!el) return;
-        const key = "contract_" + id;
-        el.value = store.get(key, "");
-        el.addEventListener('input', ()=> store.set(key, el.value));
-      });
-    }
+        counter.textContent = `${i+1} / ${slides.length}`;
+        bar.style.width = `${((i+1) / slides.length) * 100}%`;
 
-    // ======== TIMER ========
-    let timer = {
-      total: 0,
-      left: 0,
-      running: false,
-      t: null,
-      startedAt: null
-    };
+        prevBtn.disabled = i === 0;
+        nextBtn.disabled = i === slides.length - 1;
 
-    function fmt(sec){
-      sec = Math.max(0, Math.floor(sec));
-      const m = String(Math.floor(sec/60)).padStart(2,'0');
-      const s = String(sec%60).padStart(2,'0');
-      return `${m}:${s}`;
-    }
-
-    function setTimer(seconds, label){
-      timer.total = seconds;
-      timer.left = seconds;
-      timer.running = false;
-      clearInterval(timer.t);
-      timer.t = null;
-      document.getElementById('time').textContent = fmt(timer.left);
-      document.getElementById('tLabel').textContent = label || "Selecionar bloco";
-    }
-
-    function tick(){
-      timer.left -= 1;
-      document.getElementById('time').textContent = fmt(timer.left);
-      if(timer.left <= 0){
-        clearInterval(timer.t);
-        timer.t = null;
-        timer.running = false;
-        // Subtle alert: blink title + vibration if supported
-        const orig = document.title;
-        document.title = "⏱ Tempo encerrado!";
-        if(navigator.vibrate) navigator.vibrate([150,80,150]);
-        setTimeout(()=> document.title = orig, 1800);
+        // update doc title with slide name (optional)
+        const t = slides[i].getAttribute('data-title');
+        if (t) document.title = `Reciclagem — ${t}`;
       }
-    }
 
-    function start(){
-      if(timer.running) return;
-      if(timer.left <= 0) return;
-      timer.running = true;
-      timer.t = setInterval(tick, 1000);
-    }
+      function next(){ i = clamp(i+1, 0, slides.length-1); update(); }
+      function prev(){ i = clamp(i-1, 0, slides.length-1); update(); }
 
-    function pause(){
-      timer.running = false;
-      if(timer.t) clearInterval(timer.t);
-      timer.t = null;
-    }
+      // click anywhere on slide to advance (except buttons/links)
+      document.addEventListener('click', (e) => {
+        const tag = (e.target.tagName || '').toLowerCase();
+        if(['button','a','input','textarea','select','label'].includes(tag)) return;
+        const inControls = e.target.closest('.controls');
+        if(inControls) return;
+        const inTopbar = e.target.closest('.topbar');
+        if(inTopbar) return;
+        next();
+      });
 
-    // ======== PRESENTATION MODE ========
-    async function togglePresentation(){
-      const on = document.body.classList.toggle('presentation');
-      // Try fullscreen for real presentation effect
-      if(on){
-        try{
-          if(document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
-        }catch(e){}
-      }else{
-        try{
-          if(document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen();
-        }catch(e){}
+      prevBtn.addEventListener('click', (e)=>{ e.stopPropagation(); prev(); });
+      nextBtn.addEventListener('click', (e)=>{ e.stopPropagation(); next(); });
+
+      // keyboard
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+        if (e.key.toLowerCase() === 'f') {
+          e.preventDefault();
+          toggleFullscreen();
+        }
+      });
+
+      // touch swipe
+      let x0 = null, y0 = null, t0 = null;
+      document.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+      }, {passive:true});
+      document.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - x0;
+        const dy = t.clientY - y0;
+        const dt = Date.now() - t0;
+        x0 = y0 = null;
+
+        // horizontal swipe threshold
+        if (dt < 650 && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) next();
+          else prev();
+        }
+      }, {passive:true});
+
+      function toggleFullscreen(){
+        const el = document.documentElement;
+        const isFs = document.fullscreenElement;
+        if (!isFs) {
+          if (el.requestFullscreen) el.requestFullscreen();
+          toast.classList.add('show');
+          setTimeout(()=>toast.classList.remove('show'), 1200);
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
       }
-      store.set("presentation_mode", on);
-    }
 
-    // ======== BUTTONS ========
-    function bindUI(){
-      const preset = document.getElementById('preset');
-
-      const presetLabel = (value)=>{
-        const opt = preset.options[preset.selectedIndex];
-        return opt ? opt.textContent : "Bloco";
-      };
-
-      // set initial timer from preset
-      setTimer(parseInt(preset.value,10), presetLabel());
-
-      preset.addEventListener('change', ()=>{
-        setTimer(parseInt(preset.value,10), presetLabel());
-      });
-
-      document.getElementById('btnStart').addEventListener('click', start);
-      document.getElementById('btnPause').addEventListener('click', pause);
-      document.getElementById('btnStop').addEventListener('click', ()=>{
-        pause();
-        setTimer(parseInt(preset.value,10), presetLabel());
-      });
-
-      document.getElementById('btnPresent').addEventListener('click', togglePresentation);
-      document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
-
-      document.getElementById('btnSave').addEventListener('click', ()=>{
-        // Saving is automatic, but give feedback
-        const orig = document.title;
-        document.title = "✅ Progresso salvo";
-        setTimeout(()=> document.title = orig, 1200);
-      });
-
-      document.getElementById('btnReset').addEventListener('click', ()=>{
-        if(!confirm("Resetar progresso (checklists e contrato)?")) return;
-        // Remove all checklist keys
-        document.querySelectorAll('[data-store]').forEach((wrap)=>{
-          store.del(wrap.getAttribute('data-store'));
-          wrap.querySelectorAll('input[type="checkbox"]').forEach(cb=> cb.checked = false);
-        });
-        ["paro","comeco","meço"].forEach(id=>{
-          store.del("contract_" + id);
-          const el = document.getElementById(id);
-          if(el) el.value = "";
-        });
-        pause();
-        setTimer(parseInt(preset.value,10), presetLabel());
-      });
-
-      // restore presentation mode if saved
-      const pm = store.get("presentation_mode", false);
-      if(pm) document.body.classList.add('presentation');
-    }
-
-    // init
-    initChecklists();
-    initContract();
-    bindUI();
+      update();
+    })();
   </script>
 </body>
 </html>
