@@ -1,637 +1,205 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reciclagem Operacional — Alta Performance</title>
-  <meta name="description" content="Reciclagem técnica e energética (4h): Fluxo + Obrigatoriedades, Sondagem + Argumentação, Postura + Disciplina." />
-  <meta name="theme-color" content="#0b0b10" />
-  <style>
-    :root{
-      --bg0:#070A10;
-      --bg1:#0A1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.12);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
-      --brand:#6AA7FF;
-      --brand2:#B36BFF;
-      --good:#41D39A;
-      --warn:#FFCC66;
-      --bad:#FF6B6B;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --r:18px;
-      --maxw: 1120px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reciclagem Operacional — Alta Performance</title>
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--txt);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans";
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(106,167,255,.18), transparent 55%),
-        radial-gradient(900px 550px at 85% 20%, rgba(179,107,255,.16), transparent 55%),
-        radial-gradient(900px 650px at 50% 95%, rgba(65,211,154,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow:hidden;
-    }
+<style>
+:root{
+  --bg1:#0f172a;
+  --bg2:#1e293b;
+  --accent:#6366f1;
+  --accent2:#8b5cf6;
+  --success:#22c55e;
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+}
 
-    /* Shell */
-    .deck{
-      height:100%;
-      display:flex;
-      flex-direction:column;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 18px;
-      gap:12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.10));
-      backdrop-filter: blur(10px);
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px; min-width: 240px;
-    }
-    .dot{
-      width:12px; height:12px; border-radius:999px;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: 0 0 0 4px rgba(106,167,255,.14);
-    }
-    .brand h1{
-      font-size:14px; margin:0; letter-spacing:.4px; font-weight:750;
-    }
-    .brand small{ display:block; font-size:12px; color:var(--muted2); font-weight:600; margin-top:2px; }
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  overflow:hidden;
+}
 
-    .hud{
-      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      border-radius:999px;
-      font-size:12px;
-      color:var(--muted);
-      user-select:none;
-    }
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono";
-      font-size:11px;
-      color:rgba(255,255,255,.85);
-      padding:2px 6px;
-      border:1px solid rgba(255,255,255,.18);
-      border-bottom-color: rgba(255,255,255,.10);
-      border-radius:8px;
-      background: rgba(0,0,0,.25);
-    }
+.slide{
+  position:absolute;
+  inset:0;
+  padding:6vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  opacity:0;
+  transform:scale(0.96);
+  transition:all .4s ease;
+}
 
-    /* Stage */
-    .stage{
-      position:relative;
-      flex:1;
-      display:grid;
-      place-items:center;
-      padding:22px;
-    }
-    .slide{
-      width:min(var(--maxw), calc(100vw - 44px));
-      height:min(660px, calc(100vh - 160px));
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(900px 520px at 15% 10%, rgba(106,167,255,.14), transparent 55%),
-        radial-gradient(720px 420px at 85% 20%, rgba(179,107,255,.12), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:absolute;
-      inset:auto;
-      opacity:0;
-      transform: translateX(36px) scale(.985);
-      transition: opacity .26s ease, transform .26s ease;
-      display:flex;
-      flex-direction:column;
-    }
-    .slide.active{
-      opacity:1;
-      transform: translateX(0) scale(1);
-      position:relative;
-    }
-    .slide.out-left{
-      opacity:0;
-      transform: translateX(-36px) scale(.985);
-    }
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
 
-    .slide-header{
-      padding:22px 22px 12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .title{
-      margin:0;
-      font-size:28px;
-      line-height:1.08;
-      letter-spacing:-.3px;
-    }
-    .subtitle{
-      margin:10px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.5;
-      max-width: 78ch;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.85);
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .badge .b{
-      width:10px; height:10px; border-radius:999px;
-      background: var(--good);
-      box-shadow: 0 0 0 4px rgba(65,211,154,.12);
-    }
+h1{
+  font-size:4vw;
+  margin-bottom:2vh;
+  font-weight:800;
+}
 
-    .slide-body{
-      padding:18px 22px 22px;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-      flex:1;
-      overflow:auto;
-    }
-    .card{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      border-radius: 16px;
-      padding:16px;
-    }
-    .card h3{
-      margin:0 0 10px;
-      font-size:14px;
-      letter-spacing:.3px;
-      color:rgba(255,255,255,.88);
-    }
-    .list{
-      margin:0;
-      padding-left:18px;
-      color:var(--muted);
-      line-height:1.55;
-      font-size:14px;
-    }
-    .kpi{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .kpi .box{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      border-radius: 14px;
-      padding:12px;
-    }
-    .kpi .n{
-      font-size:18px;
-      font-weight:850;
-      letter-spacing:-.3px;
-    }
-    .kpi .l{
-      margin-top:6px;
-      font-size:12px;
-      color:var(--muted2);
-      line-height:1.35;
-    }
+h2{
+  font-size:2.2vw;
+  margin-bottom:2vh;
+  color:var(--accent);
+}
 
-    /* Footer controls */
-    .footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 18px 16px;
-    }
+p, li{
+  font-size:1.6vw;
+  line-height:1.6;
+}
 
-    .progress{
-      flex:1;
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      max-width: 540px;
-    }
-    .bar{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, var(--brand), var(--brand2));
-      border-radius:999px;
-      transition: width .22s ease;
-    }
+ul{
+  margin-top:2vh;
+  padding-left:2vw;
+}
 
-    .controls{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.28);
-      color:rgba(255,255,255,.9);
-      padding:10px 12px;
-      border-radius: 12px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      font-size:12px;
-      letter-spacing:.2px;
-      user-select:none;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.22);
-    }
-    .btn:active{ transform: translateY(1px); }
-    .btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
+.badge{
+  position:absolute;
+  top:3vh;
+  right:4vw;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  padding:10px 18px;
+  border-radius:999px;
+  font-size:1vw;
+}
 
-    /* Mobile */
-    @media (max-width: 920px){
-      .slide-body{ grid-template-columns: 1fr; }
-      .brand{ min-width: unset; }
-    }
-    @media (max-width: 520px){
-      .title{ font-size:22px; }
-      .slide{ height:min(720px, calc(100vh - 160px)); }
-      .progress{ display:none; }
-    }
+.progress{
+  position:fixed;
+  bottom:0;
+  left:0;
+  height:6px;
+  width:100%;
+  background:#1e293b;
+}
 
-    /* Fullscreen hint */
-    .toast{
-      position:fixed;
-      left:16px;
-      bottom:16px;
-      padding:10px 12px;
-      border-radius: 12px;
-      background: rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.85);
-      font-size:12px;
-      display:none;
-      backdrop-filter: blur(10px);
-    }
-    .toast.show{ display:block; }
-  </style>
+.bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .3s;
+}
+
+.controls{
+  position:fixed;
+  bottom:3vh;
+  right:4vw;
+  display:flex;
+  gap:10px;
+}
+
+button{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:white;
+  padding:10px 18px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:rgba(255,255,255,.2);
+}
+</style>
 </head>
 
 <body>
-  <div class="deck" id="deck">
-    <div class="topbar">
-      <div class="brand">
-        <span class="dot"></span>
-        <div>
-          <h1>Reciclagem Operacional — Alta Performance</h1>
-          <small>4h • Técnico • Energético • Nota + Conversão</small>
-        </div>
-      </div>
 
-      <div class="hud">
-        <span class="pill">Navegação: <span class="kbd">Clique</span> <span class="kbd">→</span> <span class="kbd">←</span> <span class="kbd">Espaço</span></span>
-        <span class="pill">Tela cheia: <span class="kbd">F</span></span>
-        <span class="pill" id="counter">1 / 1</span>
-      </div>
-    </div>
+<div class="slide active">
+  <div class="badge">COMEÇO FORTE</div>
+  <h1>Reciclagem que gera resultado</h1>
+  <h2>Objetivo da sessão</h2>
+  <ul>
+    <li>Eliminar “sei mas não faço”</li>
+    <li>Padronizar fluxo e obrigatoriedades</li>
+    <li>Aumentar nota e conversão imediatamente</li>
+  </ul>
+</div>
 
-    <div class="stage" id="stage">
+<div class="slide">
+  <h1>FLUXO + OBRIGATORIEDADES</h1>
+  <h2>Aplicação prática</h2>
+  <ul>
+    <li>Explique com clareza, sem termos técnicos</li>
+    <li>1 ideia por frase</li>
+    <li>Confirme entendimento</li>
+    <li>Finalize com resumo de 20 segundos</li>
+  </ul>
+</div>
 
-      <!-- SLIDE 1 -->
-      <section class="slide active" data-title="Abertura">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">Reciclagem que dá resultado (sem reinventar a roda)</h2>
-            <p class="subtitle">
-              O time já sabe vender. O objetivo aqui é <b>tirar o “sei mas não faço”</b> e transformar em execução padrão:
-              <b>Fluxo + Obrigatoriedades</b> com clareza, <b>Sondagem + Argumentação</b> com método, e <b>Postura + Disciplina</b> com consistência.
-            </p>
-          </div>
-          <div class="badge"><span class="b"></span> Começo forte</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Prioridade por impacto imediato</h3>
-            <ol class="list">
-              <li><b>Fluxo + Obrigatoriedades</b>: informação objetiva e clara, sem ruído.</li>
-              <li><b>Sondagem + Argumentação</b>: simulações, exemplos e dinâmica prática.</li>
-              <li><b>Postura + Disciplina</b>: tom de voz, vontade, objetividade e execução padrão.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h3>O que vai melhorar hoje</h3>
-            <div class="kpi">
-              <div class="box"><div class="n">↑ Nota</div><div class="l">Menos falhas de fluxo, mais conformidade.</div></div>
-              <div class="box"><div class="n">↑ Conversão</div><div class="l">Mais controle da chamada: pergunta certa → argumento certo.</div></div>
-              <div class="box"><div class="n">↓ Retrabalho</div><div class="l">Menos “voltar depois” por falta de obrigatoriedade.</div></div>
-              <div class="box"><div class="n">↑ Padrão</div><div class="l">Equipe previsível: qualidade repetível.</div></div>
-            </div>
-          </div>
-        </div>
-      </section>
+<div class="slide">
+  <h1>SONDAGEM + ARGUMENTAÇÃO</h1>
+  <h2>Dinâmica ao vivo</h2>
+  <ul>
+    <li>Pergunta 1: O que fez você buscar isso hoje?</li>
+    <li>Pergunta 2: O que pesa mais para você?</li>
+    <li>Pergunta 3: O que normalmente trava sua decisão?</li>
+  </ul>
+</div>
 
-      <!-- SLIDE 2 -->
-      <section class="slide" data-title="Agenda">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">Agenda (4h) — ritmo alto, prática e correção</h2>
-            <p class="subtitle">Sem palestra longa. A cada bloco: <b>conceito → exemplo → simulação → feedback</b>.</p>
-          </div>
-          <div class="badge"><span class="b" style="background:var(--brand)"></span> Estrutura</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Blocos</h3>
-            <ul class="list">
-              <li><b>0:00–0:20</b> — Abertura + metas + combinados de execução</li>
-              <li><b>0:20–1:35</b> — Fluxo + Obrigatoriedades (clareza e padrão)</li>
-              <li><b>1:35–1:45</b> — Pausa rápida</li>
-              <li><b>1:45–3:05</b> — Sondagem + Argumentação (método + simulações)</li>
-              <li><b>3:05–3:15</b> — Pausa rápida</li>
-              <li><b>3:15–4:00</b> — Postura + Disciplina + check de compromisso 24h</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Regras do jogo</h3>
-            <ul class="list">
-              <li>Chamadas curtas e objetivas, sem “fuga” pro WhatsApp.</li>
-              <li>Obrigatoriedades sempre: <b>sem isso, sem avanço</b>.</li>
-              <li>Simulação é “ao vivo”: errou, corrige na hora e repete certo.</li>
-              <li>Todo mundo sai com 1 ação prática para executar hoje.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<div class="slide">
+  <h1>POSTURA + DISCIPLINA</h1>
+  <h2>Padrão de comportamento</h2>
+  <ul>
+    <li>Tom firme e objetivo</li>
+    <li>Sem “jogar para o WhatsApp” sem tentar fechar</li>
+    <li>Tabular corretamente sempre</li>
+  </ul>
+</div>
 
-      <!-- SLIDE 3 -->
-      <section class="slide" data-title="Fluxo + Obrigatoriedades">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">1) Fluxo + Obrigatoriedades = Nota + Conversão</h2>
-            <p class="subtitle">
-              Quem domina fluxo domina o controle da conversa. Quem comunica obrigatoriedade com clareza evita ruído, retrabalho e queda de nota.
-            </p>
-          </div>
-          <div class="badge"><span class="b" style="background:var(--warn)"></span> Impacto imediato</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Checklist do fluxo (padrão executável)</h3>
-            <ul class="list">
-              <li>Abertura objetiva + direcionamento</li>
-              <li>Confirmação de contexto (quem fala, por quê, objetivo)</li>
-              <li>Sondagem curta (pergunta certa, sem interrogatório)</li>
-              <li>Argumentação baseada no que foi dito (não “script automático”)</li>
-              <li>Obrigatoriedades ditas com clareza (sem enrolação)</li>
-              <li>Próximo passo (o que vai acontecer + quando)</li>
-              <li>Fechamento com confirmação (resumo em 20s)</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Obrigatoriedades (como falar SEM confundir)</h3>
-            <ul class="list">
-              <li>Use frases curtas: <b>1 ideia por frase</b>.</li>
-              <li>Evite termos técnicos (ou traduza em 1 linha).</li>
-              <li>Confirme entendimento: “Ficou claro?” + 1 pergunta de checagem.</li>
-              <li>Final: <b>resumo em 20 segundos</b> (o que muda + próximo passo).</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<div class="slide">
+  <h1>COMPROMISSO 24 HORAS</h1>
+  <h2>Contrato de execução</h2>
+  <ul>
+    <li>Eu paro de __________</li>
+    <li>Eu começo a __________</li>
+    <li>Eu vou medir __________</li>
+  </ul>
+</div>
 
-      <!-- SLIDE 4 -->
-      <section class="slide" data-title="Sondagem + Argumentação">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">2) Sondagem + Argumentação (método, não improviso)</h2>
-            <p class="subtitle">Vender rápido não é falar muito — é perguntar certo e responder exatamente o que o cliente valorizou.</p>
-          </div>
-          <div class="badge"><span class="b" style="background:var(--good)"></span> Prática</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Sondagem de alta precisão (3 perguntas)</h3>
-            <ol class="list">
-              <li><b>Motivo</b>: “O que te fez buscar isso hoje?”</li>
-              <li><b>Critério</b>: “O que pesa mais: valor, prazo ou segurança do processo?”</li>
-              <li><b>Barreira</b>: “O que costuma travar pra você decidir?”</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h3>Argumentação em 2 camadas</h3>
-            <ul class="list">
-              <li><b>Camada 1 (Lógica)</b>: benefício direto e objetivo (sem novela).</li>
-              <li><b>Camada 2 (Segurança)</b>: como funciona o próximo passo + obrigatoriedades.</li>
-              <li>Fechamento: “Faz sentido eu seguir com você agora?”</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<div class="progress"><div class="bar"></div></div>
 
-      <!-- SLIDE 5 -->
-      <section class="slide" data-title="Postura + Disciplina">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">3) Postura + Disciplina (tom, vontade e padrão)</h2>
-            <p class="subtitle">Quem tem disciplina de execução vira referência. Quem “faz do seu jeito” vira instável (e derruba a nota).</p>
-          </div>
-          <div class="badge"><span class="b" style="background:var(--brand2)"></span> Consistência</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Tom de voz e presença</h3>
-            <ul class="list">
-              <li>Velocidade: firme e clara (sem atropelar).</li>
-              <li>Entonação: segurança sem agressividade.</li>
-              <li>Objetividade: “vamos por etapas” + condução.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Contrato de execução (24h)</h3>
-            <ul class="list">
-              <li><b>Eu paro de</b> ______</li>
-              <li><b>Eu começo a</b> ______</li>
-              <li><b>Eu me comprometo a medir</b> ______ diariamente</li>
-              <li><b>Amanhã eu vou executar</b> ______</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<div class="controls">
+  <button onclick="prev()">← Voltar</button>
+  <button onclick="next()">Avançar →</button>
+</div>
 
-      <!-- SLIDE 6 -->
-      <section class="slide" data-title="Encerramento">
-        <div class="slide-header">
-          <div>
-            <h2 class="title">Fechamento: padrão + prática + cobrança inteligente</h2>
-            <p class="subtitle">
-              Se quiser, eu adapto isso com o seu conteúdo completo (o HTML antigo) e deixo a apresentação com
-              “slides por tema + simulações + scripts + checklists”.
-            </p>
-          </div>
-          <div class="badge"><span class="b"></span> Próximo passo</div>
-        </div>
-        <div class="slide-body">
-          <div class="card">
-            <h3>Próximos upgrades (se você quiser)</h3>
-            <ul class="list">
-              <li>Modo “Simulação”: cards com falas e botões de resposta</li>
-              <li>Botão “Imprimir” com checklist do operador</li>
-              <li>Área de “Pontuação” por atividade (gamificação)</li>
-              <li>Versão para TV/treinamento em sala (auto-zoom)</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Como navegar</h3>
-            <ul class="list">
-              <li>Próximo: clique / espaço / seta direita</li>
-              <li>Anterior: seta esquerda</li>
-              <li>Tela cheia: tecla <b>F</b></li>
-            </ul>
-          </div>
-        </div>
-      </section>
+<script>
+const slides=document.querySelectorAll('.slide');
+const bar=document.querySelector('.bar');
+let index=0;
 
-    </div>
+function update(){
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[index].classList.add('active');
+  bar.style.width=((index+1)/slides.length*100)+'%';
+}
 
-    <div class="footer">
-      <div class="progress" aria-label="Progresso">
-        <div class="bar" id="bar"></div>
-      </div>
+function next(){
+  if(index<slides.length-1){index++;update();}
+}
 
-      <div class="controls">
-        <button class="btn" id="prevBtn" type="button">← Voltar</button>
-        <button class="btn" id="nextBtn" type="button">Avançar →</button>
-      </div>
-    </div>
-  </div>
+function prev(){
+  if(index>0){index--;update();}
+}
 
-  <div class="toast" id="toast">Tela cheia ativada (F). Pressione novamente para sair.</div>
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){next();}
+  if(e.key==='ArrowLeft'){prev();}
+});
 
-  <script>
-    (function(){
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const counter = document.getElementById('counter');
-      const bar = document.getElementById('bar');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const toast = document.getElementById('toast');
+update();
+</script>
 
-      let i = 0;
-
-      function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-
-      function update(){
-        slides.forEach((s, idx) => {
-          s.classList.remove('active','out-left');
-          if(idx === i) s.classList.add('active');
-          if(idx < i) s.classList.add('out-left');
-        });
-
-        counter.textContent = `${i+1} / ${slides.length}`;
-        bar.style.width = `${((i+1) / slides.length) * 100}%`;
-
-        prevBtn.disabled = i === 0;
-        nextBtn.disabled = i === slides.length - 1;
-
-        // update doc title with slide name (optional)
-        const t = slides[i].getAttribute('data-title');
-        if (t) document.title = `Reciclagem — ${t}`;
-      }
-
-      function next(){ i = clamp(i+1, 0, slides.length-1); update(); }
-      function prev(){ i = clamp(i-1, 0, slides.length-1); update(); }
-
-      // click anywhere on slide to advance (except buttons/links)
-      document.addEventListener('click', (e) => {
-        const tag = (e.target.tagName || '').toLowerCase();
-        if(['button','a','input','textarea','select','label'].includes(tag)) return;
-        const inControls = e.target.closest('.controls');
-        if(inControls) return;
-        const inTopbar = e.target.closest('.topbar');
-        if(inTopbar) return;
-        next();
-      });
-
-      prevBtn.addEventListener('click', (e)=>{ e.stopPropagation(); prev(); });
-      nextBtn.addEventListener('click', (e)=>{ e.stopPropagation(); next(); });
-
-      // keyboard
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
-        if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
-        if (e.key.toLowerCase() === 'f') {
-          e.preventDefault();
-          toggleFullscreen();
-        }
-      });
-
-      // touch swipe
-      let x0 = null, y0 = null, t0 = null;
-      document.addEventListener('touchstart', (e) => {
-        const t = e.touches[0];
-        x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
-      }, {passive:true});
-      document.addEventListener('touchend', (e) => {
-        if (x0 === null) return;
-        const t = e.changedTouches[0];
-        const dx = t.clientX - x0;
-        const dy = t.clientY - y0;
-        const dt = Date.now() - t0;
-        x0 = y0 = null;
-
-        // horizontal swipe threshold
-        if (dt < 650 && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
-          if (dx < 0) next();
-          else prev();
-        }
-      }, {passive:true});
-
-      function toggleFullscreen(){
-        const el = document.documentElement;
-        const isFs = document.fullscreenElement;
-        if (!isFs) {
-          if (el.requestFullscreen) el.requestFullscreen();
-          toast.classList.add('show');
-          setTimeout(()=>toast.classList.remove('show'), 1200);
-        } else {
-          if (document.exitFullscreen) document.exitFullscreen();
-        }
-      }
-
-      update();
-    })();
-  </script>
 </body>
 </html>
