@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Treinamento Profissional • Empréstimo Pessoal INSS • N1</title>
+  <meta name="theme-color" content="#070611" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-image"></div>
+  <canvas id="webCanvas" aria-hidden="true"></canvas>
+  <div class="overlay"></div>
+
+  <aside class="agenda" id="agenda">
+    <div class="agenda-head">
+      <div>
+        <p class="eyebrow">estrutura do treinamento</p>
+        <h2>Agenda</h2>
+      </div>
+      <button class="ghost icon" id="closeAgenda" aria-label="Fechar agenda">✕</button>
+    </div>
+    <div class="agenda-list" id="agendaList"></div>
+  </aside>
+
+  <main class="app">
+    <header class="topbar glass">
+      <div class="brand">
+        <div class="brand-mark">N1</div>
+        <div>
+          <p class="eyebrow">treinamento e operação de alta performance</p>
+          <h1>Empréstimo Pessoal • INSS</h1>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-track"><span id="progressFill"></span></div>
+        <p class="progress-text" id="progressText">01 / 13</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="ghost" id="openAgenda">Agenda</button>
+      </div>
+    </header>
+
+    <section class="deck" id="deck">
+
+      <article class="slide active" data-title="Abertura">
+        <div class="slide-card hero glass">
+          <p class="eyebrow">portal n1</p>
+          <h2>Treinamento profissional de produto e vendas para operação INSS</h2>
+          <p class="lead">
+            Material construído exclusivamente com as informações operacionais fornecidas sobre o produto
+            <strong>Empréstimo Pessoal – INSS</strong>, com leitura confortável, visual premium e foco em domínio de regra,
+            elegibilidade, parâmetros, bancos parceiros, documentação e contratação.
+          </p>
+          <div class="tag-row">
+            <span>Produto</span>
+            <span>Elegibilidade</span>
+            <span>Estados</span>
+            <span>DDB</span>
+            <span>Espécies</span>
+            <span>Parâmetros</span>
+            <span>Bancos</span>
+            <span>Documentos</span>
+            <span>Contratação</span>
+          </div>
+          <div class="hero-note soft-panel">
+            <strong>Objetivo do treinamento</strong>
+            <p>Capacitar a operação para trabalhar o produto dentro das regras vigentes, sem omitir nenhuma informação recebida e sem inserir dado externo.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Visão geral do produto">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 01</p>
+          <h2>O que é, para quem é e pontos centrais do produto</h2>
+          <p class="lead">
+            Produto destinado para aposentados e pensionistas do INSS, com pagamento via débito em conta.
+            O foco operacional está em trabalhar dentro das regras de estados bloqueados, DDB, espécies,
+            parâmetros e bancos parceiros.
+          </p>
+
+          <div class="grid cols-3">
+            <section class="panel">
+              <h3>Destinação</h3>
+              <p>Voltado para <strong>aposentados e pensionistas do INSS</strong>.</p>
+            </section>
+            <section class="panel">
+              <h3>Margem</h3>
+              <p><strong>Não usa margem de consignado.</strong></p>
+            </section>
+            <section class="panel">
+              <h3>Forma de pagamento</h3>
+              <p><strong>Débito em conta</strong>, descontado depois que o benefício cai.</p>
+            </section>
+          </div>
+
+          <div class="quote-box">
+            <p>Resumo operacional: produto INSS, sem consumir margem consignável, com débito em conta após o crédito do benefício.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Estados não atendidos">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 02</p>
+          <h2>Estados que não atendemos</h2>
+          <p class="lead">
+            Existem bloqueios geográficos explícitos. Esses estados devem ser tratados como não atendidos
+            para este produto.
+          </p>
+          <div class="grid cols-5">
+            <div class="state-card">AC</div>
+            <div class="state-card">AP</div>
+            <div class="state-card">RO</div>
+            <div class="state-card">TO</div>
+            <div class="state-card">PB</div>
+          </div>
+          <div class="warning-box">
+            <strong>Ponto de controle</strong>
+            <p>Antes de qualquer avanço operacional, validar o estado do cliente conforme essa lista.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Bloqueio por DDB">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 03</p>
+          <h2>Bloqueio por regra de DDB</h2>
+          <p class="lead">
+            Há bloqueio por regra de <strong>DDB (Data de Despacho do Benefício)</strong> entre
+            <strong>2010 e 2014</strong> para os estados abaixo:
+          </p>
+
+          <div class="grid cols-5 compact-grid">
+            <div class="chip-card">AP</div>
+            <div class="chip-card">AM</div>
+            <div class="chip-card">RR</div>
+            <div class="chip-card">TO</div>
+            <div class="chip-card">RO</div>
+            <div class="chip-card">AC</div>
+            <div class="chip-card">CE</div>
+            <div class="chip-card">PA</div>
+            <div class="chip-card">MA</div>
+            <div class="chip-card">PI</div>
+          </div>
+
+          <div class="soft-panel">
+            <strong>Aplicação da regra</strong>
+            <p>Se a DDB estiver entre 2010 e 2014 e o benefício estiver em um desses estados, o caso entra em bloqueio operacional.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Espécies aceitas • parte 1">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 04</p>
+          <h2>Espécies aceitas — parte 1</h2>
+          <p class="lead">
+            Abaixo, as espécies informadas como aceitas no material recebido.
+          </p>
+
+          <div class="species-grid">
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 1</strong> — PENSÃO POR MORTE DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 3</strong> — PENSÃO POR MORTE DE EMPREGADOR RURAL</li>
+                <li><strong>ESPÉCIE 5</strong> — APOSENTADORIA POR INVALIDEZ (ACID.TRAB) DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 7</strong> — APOSENTADORIA POR IDADE DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 11</strong> — AMPARO POR INVALIDEZ DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 21</strong> — PENSÃO POR MORTE</li>
+                <li><strong>ESPÉCIE 23</strong> — PENSÃO POR MORTE DE EX-COMBATENTE</li>
+                <li><strong>ESPÉCIE 27</strong> — PENSÃO POR MORTE DE FERROVIARIO</li>
+                <li><strong>ESPÉCIE 29</strong> — PENSÃO COM VANTAGENS</li>
+                <li><strong>ESPÉCIE 32</strong> — APOSENTADORIA POR INVALIDEZ</li>
+              </ul>
+            </section>
+
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 34</strong> — APOSENTADORIA POR INVALIDEZ COM VANT. LEI 1756/52</li>
+                <li><strong>ESPÉCIE 41</strong> — APOSENTADORIA POR IDADE</li>
+                <li><strong>ESPÉCIE 43</strong> — APOSENTADORIA DE EX-COMBATENTE</li>
+                <li><strong>ESPÉCIE 54</strong> — PENSAO ESPECIAL VITALICIA</li>
+                <li><strong>ESPÉCIE 56</strong> — PENSAO DE VITIMA DA TALIDOMIDA</li>
+                <li><strong>ESPÉCIE 59</strong> — PENSAO POR MORTE DE ANISTIADO</li>
+                <li><strong>ESPÉCIE 72</strong> — APOSENTADORIA POR TEMPO DE CONTRIBUICAO (EX-COMBATENTE)</li>
+                <li><strong>ESPÉCIE 83</strong> — APOSENTADORIA POR INVALIDEZ (EX-SASSE)</li>
+                <li><strong>ESPÉCIE 92</strong> — APOSENTADORIA POR INVALIDEZ (ACIDENTE DE TRABALHO)</li>
+                <li><strong>ESPÉCIE 96</strong> — PENSAO ESPECIAL HANSENIASE LEI 11520/07</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Espécies aceitas • parte 2">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 05</p>
+          <h2>Espécies aceitas — parte 2</h2>
+          <p class="lead">
+            Continuação literal da lista de espécies aceitas enviada no texto-base.
+          </p>
+
+          <div class="species-grid">
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 2</strong> — PENSÃO POR MORTE DE TRABALHADOR RURAL (ACIDENTE DE TRABALHO)</li>
+                <li><strong>ESPÉCIE 4</strong> — APOSENTADORIA POR INVALIDEZ DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 6</strong> — APOSENTADORIA POR INVALIDEZ DE EMPREGADOR RURAL</li>
+                <li><strong>ESPÉCIE 8</strong> — APOSENTADORIA POR IDADE DE EMPREGADOR RURAL</li>
+                <li><strong>ESPÉCIE 12</strong> — AMPARO POR IDADE DE TRABALHADOR RURAL</li>
+                <li><strong>ESPÉCIE 22</strong> — PENSÃO POR MORTE DE SERVIDOR PUBLICO</li>
+                <li><strong>ESPÉCIE 26</strong> — PENSÃO POR MORTE (CAPESP)</li>
+                <li><strong>ESPÉCIE 28</strong> — PENSÃO POR MORTE REGIME GERAL</li>
+                <li><strong>ESPÉCIE 30</strong> — RENDA MENSAL VITALICIA POR INVALIDEZ</li>
+                <li><strong>ESPÉCIE 33</strong> — APOSENTADORIA POR INVALIDEZ (AERONAÚTA)</li>
+              </ul>
+            </section>
+
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 40</strong> — RENDA MENSAL VITALICIA PARA MAIOR DE 70 ANOS</li>
+                <li><strong>ESPÉCIE 42</strong> — APOSENTADORIA POR TEMPO DE CONTRIBUICAO</li>
+                <li><strong>ESPÉCIE 45</strong> — APOSENTADORIA POR TEMPO DE CONTRIBUICAO DE JORNALISTA</li>
+                <li><strong>ESPÉCIE 55</strong> — PENSAO POR MORTE (PLANO BASICO)</li>
+                <li><strong>ESPÉCIE 57</strong> — APOSENTADORIA POR TEMPO DE CONTRIBUICAO (PROFESSOR)</li>
+                <li><strong>ESPÉCIE 60</strong> — PENSAO ESPECIAL MENSAL VITALICIA</li>
+                <li><strong>ESPÉCIE 82</strong> — APOSENTADORIA POR TEMPO CONTRIBUICAO (EX-SASSE)</li>
+                <li><strong>ESPÉCIE 84</strong> — PENSAO POR MORTE (EX-SASSE)</li>
+                <li><strong>ESPÉCIE 93</strong> — PENSAO POR MORTE (ACIDENTE DE TRABALHO)</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Espécies não aceitas">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 06</p>
+          <h2>Espécies não aceitas</h2>
+          <p class="lead">
+            Relação de espécies classificadas como não aceitas no texto fornecido.
+          </p>
+
+          <div class="grid cols-2">
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 37</strong> — APOSENTADORIA DE EXTRA NUMERARIO DA UNIÃO (EX SASSE)</li>
+                <li><strong>ESPÉCIE 46</strong> — APOSENTADORIA ESPECIAL</li>
+                <li><strong>ESPÉCIE 58</strong> — APOSENTADORIA EXCEPCIONAL DE ANISTIADO</li>
+                <li><strong>ESPÉCIE 88</strong> — AMPARO SOCIAL AO IDOSO</li>
+              </ul>
+            </section>
+            <section class="species-card">
+              <ul>
+                <li><strong>ESPÉCIE 44</strong> — APOSENTADORIA ESPECIAL DE AERONAUTA</li>
+                <li><strong>ESPÉCIE 87</strong> — AMPARO SOCIAL PESSOA PORTADORA DE DEFICIENCIA</li>
+                <li><strong>ESPÉCIE 8</strong> — APOSENTADORIA POR IDADE DE EMPREGADOR RURAL</li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="note-box">
+            <strong>Observação de consistência do material</strong>
+            <p>A <strong>ESPÉCIE 8</strong> aparece no texto-base tanto em espécies aceitas quanto em espécies não aceitas. O item foi mantido nas duas telas para preservar integralmente as informações recebidas.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Parâmetros do produto">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 07</p>
+          <h2>Parâmetros do produto</h2>
+          <p class="lead">
+            Referências operacionais informadas para valor, parcelas, idade e taxa.
+          </p>
+
+          <div class="grid cols-4">
+            <section class="metric-card">
+              <p class="metric-label">Valores</p>
+              <strong>R$ 200,00</strong>
+              <span>Mínimo</span>
+              <hr>
+              <strong>R$ 2.050,84</strong>
+              <span>Máximo aproximado</span>
+            </section>
+
+            <section class="metric-card">
+              <p class="metric-label">Parcelas</p>
+              <strong>6x ou 12x</strong>
+              <span>Prazo</span>
+              <hr>
+              <strong>R$ 486,30</strong>
+              <span>Parcela máxima</span>
+            </section>
+
+            <section class="metric-card">
+              <p class="metric-label">Idade</p>
+              <strong>22 anos</strong>
+              <span>Mínimo</span>
+              <hr>
+              <strong>80 anos</strong>
+              <span>Máximo conforme regra vigente</span>
+            </section>
+
+            <section class="metric-card">
+              <p class="metric-label">Taxa</p>
+              <strong>19,85%</strong>
+              <span>Taxa informada no material</span>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Bancos parceiros">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 08</p>
+          <h2>Bancos parceiros</h2>
+          <p class="lead">
+            Relação exata dos bancos parceiros disponibilizada no material.
+          </p>
+
+          <div class="banks-grid">
+            <div>041 — Banrisul</div>
+            <div>623 — Pan</div>
+            <div>260 — Nubank</div>
+            <div>237 — Bradesco</div>
+            <div>004 — BNB</div>
+            <div>104 — Caixa</div>
+            <div>077 — Inter</div>
+            <div>748 — Sicredi</div>
+            <div>033 — Santander</div>
+            <div>047 — Banese</div>
+            <div>070 — BRB</div>
+            <div>341 — Itaú</div>
+            <div>021 — Banestes</div>
+            <div>756 — Bancoob</div>
+            <div>001 — Banco do Brasil</div>
+            <div>336 — C6</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Documentos aceitos">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 09</p>
+          <h2>Documentos aceitos</h2>
+          <p class="lead">
+            Documentos aceitos e padrão operacional descrito no texto-base.
+          </p>
+
+          <div class="grid cols-3">
+            <section class="panel">
+              <h3>RG</h3>
+              <p>Digital e físico.</p>
+            </section>
+            <section class="panel">
+              <h3>CNH</h3>
+              <p>Digital e físico.</p>
+            </section>
+            <section class="panel">
+              <h3>Carteira de Trabalho</h3>
+              <p>Somente física, conforme material enviado.</p>
+            </section>
+          </div>
+
+          <div class="soft-panel">
+            <strong>Padrão de conferência</strong>
+            <p>Conferir legibilidade e dados antes de enviar, para evitar retrabalho e queda de conversão.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Regras de contratação">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 10</p>
+          <h2>Regras para realizar contratação</h2>
+          <p class="lead">
+            Fluxo de contratação conforme descrito no texto-base recebido.
+          </p>
+
+          <div class="steps">
+            <section class="step-card">
+              <span>1</span>
+              <div>
+                <h3>Não ser cliente Mercantil</h3>
+                <p>Regra explícita para seguir com a contratação.</p>
+              </div>
+            </section>
+            <section class="step-card">
+              <span>2</span>
+              <div>
+                <h3>Portabilidade do benefício para o Mercantil</h3>
+                <p>Etapa obrigatória para viabilizar o processo.</p>
+              </div>
+            </section>
+            <section class="step-card">
+              <span>3</span>
+              <div>
+                <h3>Mercantil cria uma conta para o cliente</h3>
+                <p>Conta criada no fluxo operacional descrito.</p>
+              </div>
+            </section>
+            <section class="step-card">
+              <span>4</span>
+              <div>
+                <h3>Estar dentro das regras citadas acima</h3>
+                <p>Estado, DDB, espécie, parâmetros e demais critérios precisam estar adequados.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Checklist operacional">
+        <div class="slide-card glass">
+          <p class="eyebrow">módulo 11</p>
+          <h2>Checklist operacional consolidado</h2>
+          <p class="lead">
+            Consolidação das verificações necessárias com base exclusivamente nas regras descritas.
+          </p>
+
+          <div class="grid cols-2">
+            <section class="panel">
+              <h3>Validação inicial</h3>
+              <ul>
+                <li>Confirmar que o cliente é aposentado ou pensionista do INSS.</li>
+                <li>Confirmar que o produto não utiliza margem do consignado.</li>
+                <li>Confirmar que o pagamento ocorre via débito em conta.</li>
+              </ul>
+            </section>
+
+            <section class="panel">
+              <h3>Elegibilidade operacional</h3>
+              <ul>
+                <li>Validar se o estado não está na lista de não atendimento.</li>
+                <li>Validar a regra de DDB entre 2010 e 2014 quando aplicável.</li>
+                <li>Validar espécie aceita ou não aceita conforme a lista recebida.</li>
+              </ul>
+            </section>
+
+            <section class="panel">
+              <h3>Condições do produto</h3>
+              <ul>
+                <li>Respeitar mínimo e máximo de valor.</li>
+                <li>Respeitar parcelas disponíveis: 6x ou 12x.</li>
+                <li>Respeitar idade mínima e máxima conforme regra vigente.</li>
+                <li>Aplicar taxa de 19,85% conforme material.</li>
+              </ul>
+            </section>
+
+            <section class="panel">
+              <h3>Documentação e contratação</h3>
+              <ul>
+                <li>Receber documento aceito e legível.</li>
+                <li>Garantir que o cliente não seja Mercantil.</li>
+                <li>Realizar portabilidade do benefício para o Mercantil.</li>
+                <li>Seguir a criação de conta e demais regras citadas.</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Fechamento">
+        <div class="slide-card glass final-slide">
+          <p class="eyebrow">encerramento</p>
+          <h2>Domínio do produto começa no domínio da regra</h2>
+          <p class="lead">
+            Este treinamento foi estruturado para deixar o material mais claro, confortável e visualmente forte,
+            sem retirar nenhuma informação do texto-base e sem acrescentar dado externo ao produto.
+          </p>
+
+          <div class="grid cols-3">
+            <section class="panel">
+              <h3>Produto</h3>
+              <p>Empréstimo Pessoal – INSS, sem margem consignável e com débito em conta.</p>
+            </section>
+            <section class="panel">
+              <h3>Controle</h3>
+              <p>Estados, DDB, espécies, parâmetros, bancos parceiros, documentos e contratação precisam ser validados.</p>
+            </section>
+            <section class="panel">
+              <h3>Padrão N1</h3>
+              <p>Leitura limpa, visual premium e foco operacional para uso em treinamento interno e reciclagem.</p>
+            </section>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="bottombar glass">
+      <p>Use <strong>←</strong> e <strong>→</strong> no teclado ou os botões abaixo para navegar.</p>
+      <div class="nav-actions">
+        <button class="ghost" id="prevBtn">Anterior</button>
+        <button class="primary" id="nextBtn">Próximo</button>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
